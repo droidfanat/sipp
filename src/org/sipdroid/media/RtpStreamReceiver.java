@@ -65,10 +65,18 @@ public class RtpStreamReceiver extends Thread {
 	static String codec = "";
 
 	/** Size of the read buffer */
-	public static final int BUFFER_SIZE = 1024;
+	public static final int PACKET_BUFFER_SIZE = 2048;
+
+	public static final int AUDIO_BUFFER_SIZE = 1024;
 
 	/** Maximum blocking time, spent waiting for reading new bytes [milliseconds] */
 	public static final int SO_TIMEOUT = 1000;
+
+	/** Max time to block when emptying the receive queue **/
+	private static final int SO_TIMEOUT_SHORT = 3;
+
+	// Only for troubleshooting
+	private static final boolean ACCEPT_BAD_ZRTP_CRC32C = false;
 
 	/** The RtpSocket */
 	RtpSocket rtp_socket = null;
@@ -310,7 +318,7 @@ public class RtpStreamReceiver extends Thread {
 				int oldring = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getInt("oldring",0);
 				if (oldring > 0) setStreamVolume(AudioManager.STREAM_RING,(int)(
 						am.getStreamMaxVolume(AudioManager.STREAM_RING)*
-						org.sipdroid.sipua.ui.Settings.getEarGain()*3), 0);
+						org.sipdroid.sipua.ui.Settings.getEarGain()*3/4), 0);
 				track.setStereoVolume(AudioTrack.getMaxVolume()*
 						(ogain = org.sipdroid.sipua.ui.Settings.getEarGain()*2)
 						,AudioTrack.getMaxVolume()*
@@ -423,31 +431,38 @@ public class RtpStreamReceiver extends Thread {
 	}
 
 	public static float good, late, lost, loss, loss2;
-	double avgheadroom,devheadroom;
-	int avgcnt;
-	public static int timeout;
+	double avgheadroom;
+	public static volatile int timeout;
 	int seq;
 	
 	void empty() {
+		if(SipdroidSocket.class.isInstance(rtp_socket.getDatagramSocket())) {
+			//logger.info("emptying RX buffer");
 		try {
-			rtp_socket.getDatagramSocket().setSoTimeout(1);
+				//logger.fine("setting SO_TIMEOUT" + SO_TIMEOUT_SHORT);
+				rtp_socket.getDatagramSocket().setSoTimeout(SO_TIMEOUT_SHORT);
 			for (;;)
 				rtp_socket.receive(rtp_packet);
 		} catch (SocketException e2) {
-			if (!Sipdroid.release) e2.printStackTrace();
+				if (!Sipdroid.release)
+					e2.printStackTrace();
 		} catch (IOException e) {
 		}
 		try {
+				//logger.fine("setting SO_TIMEOUT" + SO_TIMEOUT);
 			rtp_socket.getDatagramSocket().setSoTimeout(SO_TIMEOUT);
 		} catch (SocketException e2) {
-			if (!Sipdroid.release) e2.printStackTrace();
+				if (!Sipdroid.release)
+					e2.printStackTrace();
+		}
+			//logger.info("finished clearing RX buffer");
 		}
 		seq = 0;
 	}
 	
 	RtpPacket rtp_packet;
 	AudioTrack track;
-	int maxjitter,minjitter,minjitteradjust;
+	int maxjitter,minjitter,minjitteradjust,minheadroom;
 	int cnt,cnt2,user,luser,luser2,lserver;
 	public static int jitter,mu;
 	
@@ -461,15 +476,15 @@ public class RtpStreamReceiver extends Thread {
 			maxjitter = AudioTrack.getMinBufferSize(p_type.codec.samp_rate(), 
 					AudioFormat.CHANNEL_CONFIGURATION_MONO, 
 					AudioFormat.ENCODING_PCM_16BIT);
-			if (maxjitter < 2*2*BUFFER_SIZE*6*mu)
-				maxjitter = 2*2*BUFFER_SIZE*6*mu;
+			if (maxjitter < 2*2*AUDIO_BUFFER_SIZE*3*mu)
+				maxjitter = 2*2*AUDIO_BUFFER_SIZE*3*mu;
 			oldtrack = track;
 			track = new AudioTrack(stream(), p_type.codec.samp_rate(), AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT,
-					maxjitter*2, AudioTrack.MODE_STREAM);
+					maxjitter, AudioTrack.MODE_STREAM);
 			maxjitter /= 2*2;
 			minjitter = minjitteradjust = 500*mu;
 			jitter = 875*mu;
-			devheadroom = Math.pow(jitter/5, 2);
+			minheadroom = maxjitter*2;
 			timeout = 1;
 			luser = luser2 = -8000*mu;
 			cnt = cnt2 = user = lserver = 0;
@@ -487,16 +502,17 @@ public class RtpStreamReceiver extends Thread {
 	}
 
 	PowerManager.WakeLock pwl,pwl2;
-	WifiManager.WifiLock wwl;
 	static final int PROXIMITY_SCREEN_OFF_WAKE_LOCK = 32;
 	boolean lockLast,lockFirst;
 	
 	void lock(boolean lock) {
 		try {
 			if (lock) {
-				boolean lockNew = keepon ||
-					Receiver.call_state == UserAgent.UA_STATE_HOLD ||
-					RtpStreamSender.delay != 0;
+				boolean lockNew = (keepon && Receiver.on_wlan) ||
+					(InCallScreen.mSlidingCardManager != null && InCallScreen.mSlidingCardManager.isSlideInProgress()) ||
+					Receiver.call_state != UserAgent.UA_STATE_INCALL ||
+					RtpStreamSender.delay != 0 ||
+					!InCallScreen.started;
 				if (lockFirst || lockLast != lockNew) {
 					lockLast = lockNew;
 					lock(false);
@@ -519,37 +535,15 @@ public class RtpStreamReceiver extends Thread {
 		if (lock) {
 			if (pwl2 == null) {
 				PowerManager pm = (PowerManager) Receiver.mContext.getSystemService(Context.POWER_SERVICE);
-				WifiManager wm = (WifiManager) Receiver.mContext.getSystemService(Context.WIFI_SERVICE);
 				pwl2 = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Sipdroid.Receiver");
 				pwl2.acquire();
-				wwl = wm.createWifiLock(3,"Sipdroid.Receiver");
-				wwl.acquire();
 			}
 		} else if (pwl2 != null) {
 			pwl2.release();
 			pwl2 = null;
-			wwl.release();
 		}
 	}
 
-	void newjitter(boolean inc) {
-		 if (good == 0 || lost/good > 0.01 || call_recorder != null)
-			 return;
-		 int newjitter = (int)Math.sqrt(devheadroom)*7 + (inc?minjitteradjust:0);
-		 if (newjitter < minjitter)
-			 newjitter = minjitter;
-		 if (newjitter > maxjitter)
-			 newjitter = maxjitter;
-		 if (!inc && (Math.abs(jitter-newjitter) < minjitteradjust || newjitter >= jitter))
-			 return;
-		 if (inc && newjitter <= jitter)
-			 return;
-		 jitter = newjitter;
-		 late = 0;
-		 avgcnt = 0;
-		 luser2 = user;
-	}
-	
 	boolean keepon;
 	
 	/** Runs it in a new Thread. */
@@ -558,16 +552,14 @@ public class RtpStreamReceiver extends Thread {
 		keepon = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_KEEPON, org.sipdroid.sipua.ui.Settings.DEFAULT_KEEPON);
 
 		if (rtp_socket == null) {
-			if (DEBUG)
-				println("ERROR: RTP socket is null");
+			//logger.severe("ERROR: RTP socket is null");
 			return;
 		}
 
-		byte[] buffer = new byte[BUFFER_SIZE+12];
+		byte[] buffer = new byte[PACKET_BUFFER_SIZE];  // FIXME - Good size for ZRTP?
 		rtp_packet = new RtpPacket(buffer, 0);
 
-		if (DEBUG)
-			println("Reading blocks of max " + buffer.length + " bytes");
+		//logger.info("Reading blocks of max " + buffer.length + " bytes");
 
 		running = true;
 		enableBluetooth(PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_BLUETOOTH,
@@ -584,15 +576,18 @@ public class RtpStreamReceiver extends Thread {
 		if (oldvol == -1) oldvol = am.getStreamVolume(AudioManager.STREAM_MUSIC);
 		initMode();
 		setCodec();
-		short lin[] = new short[BUFFER_SIZE];
-		short lin2[] = new short[BUFFER_SIZE];
+		short lin[] = new short[AUDIO_BUFFER_SIZE];
+		short lin2[] = new short[AUDIO_BUFFER_SIZE];
 		int server, headroom, todo, len = 0, m = 1, expseq, getseq, vm = 1, gap, gseq;
 		ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_VOICE_CALL,(int)(ToneGenerator.MAX_VOLUME*2*org.sipdroid.sipua.ui.Settings.getEarGain()));
+		//logger.info("starting track player");
 		track.play();
+		//logger.info("suggesting garbage collection should run");
 		System.gc();
 		empty();
 		lockFirst = true;
 		while (running) {
+			//logger.fine("doing RX loop");
 			lock(true);
 			if (Receiver.call_state == UserAgent.UA_STATE_HOLD) {
 				lock(false);
@@ -614,18 +609,20 @@ public class RtpStreamReceiver extends Thread {
 				if (timeout != 0) {
 					tg.stopTone();
 					track.pause();
-					for (int i = maxjitter*4; i > 0; i -= BUFFER_SIZE)
-						write(lin2,0,i>BUFFER_SIZE?BUFFER_SIZE:i);
+					for (int i = maxjitter*2; i > 0; i -= AUDIO_BUFFER_SIZE)
+						write(lin2,0,i>AUDIO_BUFFER_SIZE?AUDIO_BUFFER_SIZE:i);
 					cnt += maxjitter*2;
 					track.play();
 					empty();
 				}
 				timeout = 0;
-			} catch (IOException e) {
+			} catch (Exception e) {
+				e.printStackTrace();
+			//	logger.warning("Exception in receive/play block: " + e.getClass().getCanonicalName() + ", " + e.getMessage());
 				if (timeout == 0 && nodata) {
 					tg.startTone(ToneGenerator.TONE_SUP_RINGTONE);
 				}
-				rtp_socket.getDatagramSocket().disconnect();
+				//rtp_socket.getDatagramSocket().disconnect();
 				if (++timeout > 60) {
 					Receiver.engine(Receiver.mContext).rejectcall();
 					break;
@@ -637,9 +634,6 @@ public class RtpStreamReceiver extends Thread {
 					 m++;
 					 continue;
 				 }
-				 gap = (gseq - seq) & 0xff;
-				 if (gap > 240)
-					 continue;
 				 server = track.getPlaybackHeadPosition();
 				 headroom = user-server;
 				 
@@ -659,7 +653,6 @@ public class RtpStreamReceiver extends Thread {
 						 saveVolume();
 						 setCodec();
 						 restoreVolume();
-						 codec = p_type.codec.getTitle();
 					 }
 					 len = p_type.codec.decode(buffer, lin, rtp_packet.getPayloadLength());
 					 
@@ -674,18 +667,20 @@ public class RtpStreamReceiver extends Thread {
 		 				 calc2(lin,0,len);
 				 }
 				 
-				 if (cnt == 0)
 					 avgheadroom = avgheadroom * 0.99 + (double)headroom * 0.01;
-				 if (avgcnt++ > 300)
-					 devheadroom = devheadroom * 0.999 + Math.pow(Math.abs(headroom - avgheadroom),2) * 0.001;
-
+				 if (headroom < minheadroom)
+					 minheadroom = headroom;
 				 if (headroom < 250*mu) { 
 	 				 late++;
-	 				 avgcnt += 10;
-	 				 if (avgcnt > 400)
-	 					 newjitter(true);
+					 if (good != 0 && lost/good < 0.01 && call_recorder == null)
+						 if (late/good > 0.01 && jitter + minjitteradjust < maxjitter) {
+							 jitter += minjitteradjust;
+							 late = 0;
+							 luser2 = user;
+							 minheadroom = maxjitter*2;
+						 }
 					 todo = jitter - headroom;
-					 write(lin2,0,todo>BUFFER_SIZE?BUFFER_SIZE:todo);
+					write(lin2,0,todo>AUDIO_BUFFER_SIZE?AUDIO_BUFFER_SIZE:todo);
 				 }
 
 				 if (cnt > 500*mu && cnt2 < 2) {
@@ -703,7 +698,6 @@ public class RtpStreamReceiver extends Thread {
 					 if (gap > 0) {
 						 if (gap > 100) gap = 1;
 						 loss += gap;
-						 System.out.println("debug packet lost");
 						 lost += gap;
 						 good += gap - 1;
 						 loss2++;
@@ -734,8 +728,13 @@ public class RtpStreamReceiver extends Thread {
 						 restoreVolume();
 					 }
 					 luser = user;
-					 if (user >= luser2 + 160000*mu)
-						 newjitter(false);
+					 if (user >= luser2 + 160000*mu && good != 0 && lost/good < 0.01 && avgheadroom > minheadroom) {
+						 int newjitter = (int)avgheadroom - minheadroom + minjitter;
+						 if (jitter-newjitter > minjitteradjust)
+							 jitter = newjitter;
+						 minheadroom = maxjitter*2;
+						 luser2 = user;
+				 }
 				 }
 				 lserver = server;
 			}
