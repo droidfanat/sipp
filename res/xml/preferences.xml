@@ -198,7 +198,7 @@
 		android:title="@string/codecs" >
         	<intent
                 	android:action="android.intent.action.MAIN"
-	                android:targetPackage="org.silena.sipua"
+	                android:targetPackage="org.silena"
 	                android:targetClass="org.sipdroid.codecs.Codecs$CodecSettings" />
 
 	</PreferenceScreen>
