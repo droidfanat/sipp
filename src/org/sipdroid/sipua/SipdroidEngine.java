@@ -271,10 +271,14 @@ public class SipdroidEngine implements RegisterAgentListener {
     
 	void setOutboundProxy(SipProvider sip_provider,int i) {
 		try {
+			String host = PreferenceManager.getDefaultSharedPreferences(getUIContext()).getString(Settings.PREF_PROTOCOL+(i!=0?i:""), Settings.DEFAULT_PROTOCOL).equals("tls")?
+					PreferenceManager.getDefaultSharedPreferences(getUIContext()).getString(Settings.PREF_SERVER+(i!=0?i:""), Settings.DEFAULT_SERVER):null;
+			if (host != null && host.equals(Settings.DEFAULT_SERVER))
+				host = "www1.pbxes.com";	
 			if (sip_provider != null) sip_provider.setOutboundProxy(new SocketAddress(
-					user_profiles[i].outbound_server_name,
-					user_profiles[i].outbound_server_port
-					));
+					IpAddress.getByName(PreferenceManager.getDefaultSharedPreferences(getUIContext()).getString(Settings.PREF_DNS+i, Settings.DEFAULT_DNS)),
+					Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(getUIContext()).getString(Settings.PREF_PORT+(i!=0?i:""), Settings.DEFAULT_PORT))),
+					host);
 		} catch (Exception e) {
 		}
 	}
