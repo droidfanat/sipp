@@ -1,7 +1,6 @@
 /home/admin2/SILENAgit/bin/SILENAgit-debug-unaligned.apk : \
 /home/admin2/SILENAgit/bin/SILENAgit.ap_ \
 /home/admin2/SILENAgit/bin/classes.dex \
-/home/admin2/SILENAgit/libs/mjsip-fork-1.6+lumicall.2.jar \
 /home/admin2/SILENAgit/libs/opentelecoms.org-util.jar \
 /home/admin2/SILENAgit/libs/opentelecoms.org-zrtp.jar \
 /home/admin2/SILENAgit/libs/org.xbill.dns_2.1.1.jar \

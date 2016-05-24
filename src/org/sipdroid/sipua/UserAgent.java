@@ -21,16 +21,20 @@
 
 package org.sipdroid.sipua;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import java.util.Enumeration;
 import java.util.Vector;
 import org.silena.R; 
+import org.silena.main.MainActivity;
 import org.sipdroid.codecs.Codec;
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.media.JAudioLauncher;
 import org.sipdroid.media.MediaLauncher;
 import org.sipdroid.media.RtpStreamReceiver;
+import org.sipdroid.sipua.ui.Activity2;
 import org.sipdroid.sipua.ui.Receiver;
+import static org.sipdroid.sipua.ui.Receiver.mContext;
 import org.sipdroid.sipua.ui.Settings;
 import org.sipdroid.sipua.ui.Sipdroid;
 import org.zoolu.net.IpAddress;
@@ -458,6 +462,7 @@ public class UserAgent extends CallListenerAdapter {
 		}
 		
 		changeStatus(UA_STATE_IDLE);
+                     mContext.startActivity(Receiver.createIntent(MainActivity.class));
 	}
 
 	/** Accepts an incoming call */
@@ -864,6 +869,8 @@ public class UserAgent extends CallListenerAdapter {
 		}
 		// else
 		printLog("CLOSE", LogLevel.HIGH);
+        
+           
 		closeMediaApplication();
 		changeStatus(UA_STATE_IDLE);
 	}

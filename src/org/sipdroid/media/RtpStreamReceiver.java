@@ -70,7 +70,7 @@ public class RtpStreamReceiver extends Thread {
 	public static final int AUDIO_BUFFER_SIZE = 1024;
 
 	/** Maximum blocking time, spent waiting for reading new bytes [milliseconds] */
-	public static final int SO_TIMEOUT = 1000;
+	public static final int SO_TIMEOUT = 200;
 
 	/** Max time to block when emptying the receive queue **/
 	private static final int SO_TIMEOUT_SHORT = 3;

@@ -153,12 +153,16 @@ public class RtpStreamSender extends Thread {
 		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getString(Settings.PREF_SERVER, "").equals(Settings.DEFAULT_SERVER))
 			switch (payload_type.codec.number()) {
 			case 0:
+                              this.frame_size = 80;
+				break;
 			case 8:
 				this.frame_size = 1024;
 				break;
 			case 9:
 				this.frame_size = 960;
 				break;
+			case 18:
+                                this.frame_size = 80;
 			default:
 				this.frame_size = frame_size;
 				break;
@@ -172,6 +176,7 @@ public class RtpStreamSender extends Thread {
 		} catch (Exception e) {
 			if (!Sipdroid.release) e.printStackTrace();
 		}
+		setForceTX(false);
 	}
 
 	/** Sets the synchronization adjustment time (in milliseconds). */
@@ -262,6 +267,13 @@ public class RtpStreamSender extends Thread {
 		}
 	}
 	
+	
+	
+	boolean forceTX = false;
+	public void setForceTX(boolean forceTX) {
+		this.forceTX = forceTX;
+	}
+	
 	public static int m;
 	int mu;
 	
@@ -302,7 +314,7 @@ public class RtpStreamSender extends Thread {
 			if (frame_size == 960) frame_size = 320;
 		} else {
 			if (frame_size == 960) frame_size = 320;
-			if (frame_size == 1024) frame_size = 160; // frame_size *= 2;
+			if (frame_size == 1024) frame_size *= 2;
 		}
 		frame_rate = p_type.codec.samp_rate()/frame_size;
 		long frame_period = 1000 / frame_rate;
@@ -318,7 +330,7 @@ public class RtpStreamSender extends Thread {
 
 		AudioRecord record = null;
 		
-		short[] lin = new short[frame_size*(frame_rate+2)];
+		short[] lin = new short[frame_size*(frame_rate+1)];
 		int num,ring = 0,pos;
 		random = new Random();
 		InputStream alerting = null;
@@ -327,6 +339,9 @@ public class RtpStreamSender extends Thread {
 		} catch (IOException e2) {
 			if (!Sipdroid.release) e2.printStackTrace();
 		}
+		
+		long maximumIntervalBetweenTransmissions = frame_period;
+		
 		p_type.codec.init();
 		while (running) {
 			 if (changed || record == null) {
@@ -347,9 +362,6 @@ public class RtpStreamSender extends Thread {
 					record = null;
 					break;
 				}
-				if (android.os.Build.VERSION.SDK_INT >= 16) {
-					RtpStreamSenderNew_SDK16.aec(record);
-				}
 				record.startRecording();
 				micgain = (int)(Settings.getMicGain()*10);
 			 }
@@ -359,7 +371,7 @@ public class RtpStreamSender extends Thread {
 				record.stop();
 				while (running && (muted || Receiver.call_state == UserAgent.UA_STATE_HOLD)) {
 					try {
-						sleep(1000);
+						sleep(10);
 					} catch (InterruptedException e1) {
 					}
 				}
@@ -420,7 +432,7 @@ public class RtpStreamSender extends Thread {
 					 last_tx_time += next_tx_delay-sync_adj;
 				 }
 			 }
-			 pos = Integer.parseInt(Build.VERSION.SDK) == 21?0:((ring+delay*frame_rate*frame_size/2)%(frame_size*(frame_rate+1)));
+			 pos = (ring+delay*frame_rate*frame_size)%(frame_size*(frame_rate+1));
 			 num = record.read(lin,pos,frame_size);
 			 if (num <= 0)
 				 continue;
@@ -448,7 +460,7 @@ public class RtpStreamSender extends Thread {
  				 calc10(lin,pos,num);
  				 break;
  			 }
-			 if (Receiver.call_state != UserAgent.UA_STATE_INCALL &&
+			 if (!forceTX && Receiver.call_state != UserAgent.UA_STATE_INCALL &&
 					 Receiver.call_state != UserAgent.UA_STATE_OUTGOING_CALL && alerting != null) {
 				 try {
 					if (alerting.available() < num/mu)
@@ -462,21 +474,23 @@ public class RtpStreamSender extends Thread {
 					 num = p_type.codec.encode(lin, 0, buffer, num);
 				 }
 			 } else {
-				 num = p_type.codec.encode(lin, Integer.parseInt(Build.VERSION.SDK) == 21?0:(ring%(frame_size*(frame_rate+1))), buffer, num);
+				 int offset = ring%(frame_size*(frame_rate+1));
+				 num = p_type.codec.encode(lin, offset, buffer, num);
 			 }
 			 
+ 
  			 ring += frame_size;
  			 rtp_packet.setSequenceNumber(seqn++);
  			 rtp_packet.setTimestamp(time);
  			 rtp_packet.setPayloadLength(num);
  			 now = SystemClock.elapsedRealtime();
- 			 if (RtpStreamReceiver.timeout == 0 || Receiver.on_wlan || now-lastsent > 500)
+ 			 //if (RtpStreamReceiver.timeout == 0 || now-lastsent > maximumIntervalBetweenTransmissions)
+ 			 if(true)
 	 			 try {
 	 				 lastsent = now;
 	 				 rtp_socket.send(rtp_packet);
-	 				 if (m > 1 && (RtpStreamReceiver.timeout == 0 || Receiver.on_wlan))
-	 					 for (int i = 1; i < m; i++)
-	 						 rtp_socket.send(rtp_packet);
+	 				 if (m == 2 && RtpStreamReceiver.timeout == 0)
+	 					 rtp_socket.send(rtp_packet);  // can't use sendPacket here, or double encryption
 	 			 } catch (Exception e) {
 	 			 }
  			 if (p_type.codec.number() == 9)
@@ -493,12 +507,11 @@ public class RtpStreamSender extends Thread {
  						 (p_type.codec.number() == 0 || p_type.codec.number() == 8 || p_type.codec.number() == 9))        	
  					 m = 2;
  				 else
- 					 
  					 m = 1;
  			 } else
  				 m = 1;
-		}
-		if (Integer.parseInt(Build.VERSION.SDK) < 5)
+		} // while running
+		if (Build.VERSION.SDK_INT < 5)
 			while (RtpStreamReceiver.getMode() == AudioManager.MODE_IN_CALL)
 				try {
 					sleep(1000);

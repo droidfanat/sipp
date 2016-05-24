@@ -1,7 +1,7 @@
 # view AndroidManifest.xml #generated:17
 -keep class com.dm.zbar.android.scanner.ZBarScannerActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:47
+# view AndroidManifest.xml #generated:48
 -keep class oorg.sipdroid.sipua.ui.PSTN { <init>(...); }
 
 # view AndroidManifest.xml #generated:22
@@ -13,13 +13,13 @@
 # view AndroidManifest.xml #generated:21
 -keep class org.silena.main.Registration { <init>(...); }
 
-# view AndroidManifest.xml #generated:23
+# view AndroidManifest.xml #generated:24
 -keep class org.silena.ser.httpService { <init>(...); }
 
-# view AndroidManifest.xml #generated:26
+# view AndroidManifest.xml #generated:27
 -keep class org.silena.sipua.ui.CallbackScreen { <init>(...); }
 
-# view AndroidManifest.xml #generated:99
+# view AndroidManifest.xml #generated:100
 -keep class org.sipdroid.codecs.Codecs$CodecSettings { <init>(...); }
 
 # view finger/res/layout-finger/dialpad.xml #generated:17
@@ -28,16 +28,19 @@
 # view res/layout/call_card_popup.xml #generated:21
 -keep class org.sipdroid.sipua.phone.CallCard { <init>(...); }
 
-# view AndroidManifest.xml #generated:93
+# view AndroidManifest.xml #generated:94
 -keep class org.sipdroid.sipua.ui.Activity2 { <init>(...); }
 
-# view AndroidManifest.xml #generated:64
+# view AndroidManifest.xml #generated:65
 -keep class org.sipdroid.sipua.ui.AutoAnswer { <init>(...); }
 
-# view AndroidManifest.xml #generated:65
+# view AndroidManifest.xml #generated:23
+-keep class org.sipdroid.sipua.ui.CallbackScreen { <init>(...); }
+
+# view AndroidManifest.xml #generated:66
 -keep class org.sipdroid.sipua.ui.ChangeAccount { <init>(...); }
 
-# view AndroidManifest.xml #generated:109
+# view AndroidManifest.xml #generated:110
 -keep class org.sipdroid.sipua.ui.InCallScreen { <init>(...); }
 
 # view res/layout/index.xml #generated:75
@@ -45,52 +48,52 @@
 # view res/layout/sipdroid.xml #generated:119
 -keep class org.sipdroid.sipua.ui.InstantAutoCompleteTextView { <init>(...); }
 
-# view AndroidManifest.xml #generated:137
+# view AndroidManifest.xml #generated:138
 -keep class org.sipdroid.sipua.ui.PhoneStart { <init>(...); }
 
-# view AndroidManifest.xml #generated:125
+# view AndroidManifest.xml #generated:126
 -keep class org.sipdroid.sipua.ui.Receiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:56
+# view AndroidManifest.xml #generated:57
 -keep class org.sipdroid.sipua.ui.SIP { <init>(...); }
 
-# view AndroidManifest.xml #generated:66
+# view AndroidManifest.xml #generated:67
 -keep class org.sipdroid.sipua.ui.SIPUri { <init>(...); }
 
-# view AndroidManifest.xml #generated:95
+# view AndroidManifest.xml #generated:96
 -keep class org.sipdroid.sipua.ui.Settings { <init>(...); }
 
 # view res/xml/preferences.xml #generated:151
 -keep class org.sipdroid.sipua.ui.SipRingtonePreference { <init>(...); }
 
-# view AndroidManifest.xml #generated:102
+# view AndroidManifest.xml #generated:103
 -keep class org.sipdroid.sipua.ui.VideoCamera { <init>(...); }
 
 # view res/layout/video_camera.xml #generated:21
 -keep class org.sipdroid.sipua.ui.VideoPreview { <init>(...); }
 
-# view AndroidManifest.xml #generated:120
+# view AndroidManifest.xml #generated:121
 -keep class org.sipdroid.ui.Caller { <init>(...); }
 
-# view AndroidManifest.xml #generated:116
+# view AndroidManifest.xml #generated:117
 -keep class org.sipdroid.ui.LoopAlarm { <init>(...); }
 
-# view AndroidManifest.xml #generated:119
+# view AndroidManifest.xml #generated:120
 -keep class org.sipdroid.ui.LoopLocation { <init>(...); }
 
-# view AndroidManifest.xml #generated:114
+# view AndroidManifest.xml #generated:115
 -keep class org.sipdroid.ui.OneShotAlarm { <init>(...); }
 
-# view AndroidManifest.xml #generated:115
+# view AndroidManifest.xml #generated:116
 -keep class org.sipdroid.ui.OneShotAlarm2 { <init>(...); }
 
-# view AndroidManifest.xml #generated:118
+# view AndroidManifest.xml #generated:119
 -keep class org.sipdroid.ui.OneShotLocation { <init>(...); }
 
-# view AndroidManifest.xml #generated:117
+# view AndroidManifest.xml #generated:118
 -keep class org.sipdroid.ui.OwnWifi { <init>(...); }
 
-# view AndroidManifest.xml #generated:143
+# view AndroidManifest.xml #generated:144
 -keep class org.sipdroid.ui.RegisterService { <init>(...); }
 
 # onClick res/layout/balance_main.xml #generated:20

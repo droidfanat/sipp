@@ -562,7 +562,7 @@ import org.zoolu.sip.provider.SipProvider;
 	       	alarm(renew_time-15, OneShotAlarm.class);
 		}
 
-		static Intent createIntent(Class<?>cls) {
+	public	static Intent createIntent(Class<?>cls) {
         	Intent startActivity = new Intent();
         	startActivity.setClass(mContext,cls);
     	    startActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

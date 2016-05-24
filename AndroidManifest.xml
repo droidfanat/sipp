@@ -17,9 +17,10 @@
          <activity android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
                   android:screenOrientation="landscape"
                   android:label="@string/app_name" />
-        BalanceMain
+
          <activity android:name=".main.Registration"  android:label="@string/app_name"/>
          <activity android:name=".main.BalanceMain"  android:label="@string/app_name"/>
+          <activity android:name="org.sipdroid.sipua.ui.CallbackScreen"  android:label="@string/app_name"/>
          <service android:name="org.silena.ser.httpService" android:label="Sample Service" />
     
          
@@ -66,7 +67,7 @@
         <activity android:name="org.sipdroid.sipua.ui.SIPUri" android:label="@string/app_name"
         		android:theme="@android:style/Theme.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.CALL" />
+             <!--   <action android:name="android.intent.action.CALL" /> -->
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="sip" />
                 <data android:scheme="sipdroid" />
@@ -119,7 +120,7 @@
 	    <receiver android:name="org.sipdroid.ui.LoopLocation" android:label="@string/app_name"/>
 	    <receiver android:name="org.sipdroid.ui.Caller" android:label="@string/app_name">
 	        <intent-filter android:priority="-1">
-	        	<action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+	        	<!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
 	        </intent-filter>
 	    </receiver>
         <receiver android:name="org.sipdroid.sipua.ui.Receiver" android:enabled="true" android:label="@string/app_name">
