@@ -54,6 +54,7 @@
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/Codec.class \
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/BV16.class \
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/SILK24.class \
+/home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/Opus.class \
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/SILK16.class \
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/codecs/Codecs$CodecSettings.class \
 /home/admin2/SILENAgit/bin/classes/org/sipdroid/net/KeepAliveSip.class \

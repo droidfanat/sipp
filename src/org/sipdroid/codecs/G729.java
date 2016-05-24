@@ -19,7 +19,16 @@
  */
 package org.sipdroid.codecs;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Logger;
+
+import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.Sipdroid;
+import org.zoolu.tools.Base64;
+
+import android.content.Context;
+import android.telephony.TelephonyManager;
 
 class G729 extends CodecBase implements Codec {
 
@@ -29,28 +38,33 @@ class G729 extends CodecBase implements Codec {
 		CODEC_DESCRIPTION = "8kbit";
 		CODEC_NUMBER = 18;
 		CODEC_DEFAULT_SETTING = "always";
+		CODEC_FRAME_SIZE = 80 * 2;          // FIXME - hack - send two frames in each packet
+		CODEC_FRAMES_PER_PACKET = 2;
+		CODEC_JNI_LIB = "g729_jni";
 		super.update();
 	}
+	
+	Logger logger = Logger.getLogger(this.getClass().getCanonicalName());
 
 
-	void load() {
-		try {
-			System.loadLibrary("g729_jni");
-			super.load();
-		} catch (Throwable e) {
-			if (!Sipdroid.release) e.printStackTrace();
-		}
-    
-	}  
- 
 	public native int open();
 	public native int decode(byte encoded[], short lin[], int size);
 	public native int encode(short lin[], int offset, byte encoded[], int size);
 	public native void close();
-
-	public void init() {
-		load();
-		if (isLoaded())
-			open();
+	
+	final static String hexChars = "0123456789abcdef";
+	public String byteToHexString(byte[] buffer, int offset, int length) {
+		if(buffer == null)
+			return "<null buffer>";
+		// FIXME - performance
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < length; i++) {
+			byte b = buffer[offset + i];
+			sb.append(hexChars.charAt((b & 0xf0) >> 4));
+			sb.append(hexChars.charAt(b&0xf));
+		}
+		return sb.toString();
 	}
+	
+	
 }

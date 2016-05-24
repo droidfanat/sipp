@@ -19,13 +19,15 @@
  */
 
 package org.sipdroid.codecs;
-import org.silena.R;
+
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Logger;
 
- 
+import org.silena.R;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.Settings;
+import org.zoolu.sdp.MediaDescriptor;
 import org.zoolu.sdp.MediaField;
 import org.zoolu.sdp.SessionDescriptor;
 import org.zoolu.sdp.AttributeField;
@@ -39,27 +41,30 @@ import android.preference.PreferenceActivity;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import org.silena.main.MainConstant;
 
 public class Codecs {
-    	private static final Vector<Codec> codecs = new Vector<Codec>() {{
+	
+	
+	/* The default codec preference order is based on the order
+	   of the elements in this vector */
+    	private static final Vector<Codec> codecs = new Vector<Codec>() {{			
 			add(new G722());
-                        add(new G729());
+			add(new Opus());
 //			add(new SILK24());		save space (until a common library for all bitrates gets available?)
 //			add(new SILK16());
-//			add(new SILK8());
-			add(new alaw());
-			add(new ulaw());
-			add(new Speex());
-//			add(new GSM());
-			add(new BV16());
+			add(new SILK8());
+			add(new G729());
+			add(new GSM());
+//			add(new Speex());
+//			add(new BV16());
+			add(new alaw());   // These should be enabled for compatibility reasons,
+			add(new ulaw());   // but they are currently disabled to reduce load on the TURN relay			
 		}};
 	private static final HashMap<Integer, Codec> codecsNumbers;
 	private static final HashMap<String, Codec> codecsNames;
@@ -76,30 +81,20 @@ public class Codecs {
 
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Receiver.mContext);
 		String prefs = sp.getString(Settings.PREF_CODECS, Settings.DEFAULT_CODECS);
-                Log.d(MainConstant.LOG_TAG, "Engine Codecs prefs:," + prefs); //9 18 8 0 97 3 106
 		if (prefs == null) {
-			String v = "";
-			SharedPreferences.Editor e = sp.edit();
-
-			for (Codec c : codecs)
-				v = v + c.number() + " ";
-			e.putString(Settings.PREF_CODECS, v);
-			e.commit();
+			saveCodecPrefs(sp);
 		} else {
 			String[] vals = prefs.split(" ");
+			Vector<Codec> orderedCodecs = new Vector<Codec>();
 			for (String v: vals) {
 				try {
 					int i = Integer.parseInt(v);
 					Codec c = codecsNumbers.get(i);
-					/* moves the codec to the end
-					 * of the list so we end up
-					 * with the new codecs (if
-					 * any) at the top and the
-					 * remaining ones ordered
-					 * according to the user */
+					/* moves the configured codecs to the beginning of the list,
+					 * and any new codecs will automatically go at the end */
 					if (c != null) {
 						codecs.remove(c);
-						codecs.add(c);
+						orderedCodecs.add(c);
 					}
 				} catch (Exception e) {
 					// do nothing (expecting
@@ -107,7 +102,23 @@ public class Codecs {
 					// indexnot found
 				}
 			}
+			orderedCodecs.addAll(codecs);
+			codecs.clear();
+			for(Codec c : orderedCodecs) {
+				if(c.isLicensed())
+					codecs.add(c);
+			}
+			saveCodecPrefs(sp);
 		}
+	}
+	
+	private static void saveCodecPrefs(SharedPreferences sp) {
+		String v = "";
+		for (Codec c : codecs)
+			v = v + c.number() + " ";
+		SharedPreferences.Editor e = sp.edit();
+		e.putString(Settings.PREF_CODECS, v);
+		e.commit();
 	}
 
 	public static Codec get(int key) {
@@ -143,6 +154,7 @@ public class Codecs {
 					e.putString(c.key(), old.get(c.name()));
 					e.commit();
 					c.init();
+					c.update();
 				} else
 					c.fail();
 			}
@@ -161,13 +173,7 @@ public class Codecs {
 			l.setPersistent(true);
 			l.setEnabled(!c.isFailed());
 			c.setListPreference(l);
-			if (c.number() == 9)
-				if (ps.getSharedPreferences().getString(Settings.PREF_SERVER, Settings.DEFAULT_SERVER).equals(Settings.DEFAULT_SERVER))
-					l.setSummary(l.getEntry()+" ("+r.getString(R.string.settings_improve2)+")");
-				else
-					l.setSummary(l.getEntry()+" ("+r.getString(R.string.settings_hdvoice)+")");
-			else
-				l.setSummary(l.getEntry());
+			l.setSummary(l.getEntry());
 			l.setTitle(c.getTitle());
 			ps.addPreference(l);
 		}
@@ -177,7 +183,6 @@ public class Codecs {
 		Vector<Integer> v = new Vector<Integer>(codecs.size());
 
 		for (Codec c : codecs) {
-			c.update();
 			if (!c.isValid())
 				continue;
 			v.add(c.number());
@@ -219,13 +224,29 @@ public class Codecs {
 	};
 
 	public static Map getCodec(SessionDescriptor offers) {
-		MediaField m = offers.getMediaDescriptor("audio").getMedia(); 
-		if (m==null) 
+		
+		Logger logger = Logger.getLogger(Codecs.class.getCanonicalName());
+		if(offers == null) {
+			logger.warning("offers == null");
 			return null;
+		}
+		
+		MediaDescriptor mAudio = offers.getMediaDescriptor("audio");
+		if(mAudio == null) {
+			logger.warning("offer doesn't contain m=audio");
+			logger.info(offers.toString());
+			return null;
+		}
+		
+		MediaField m = mAudio.getMedia(); 
+		if (m==null) {
+			logger.warning("media field invalid");
+			return null;
+		}
 
 		String proto = m.getTransport();
 		//see http://tools.ietf.org/html/rfc4566#page-22, paragraph 5.14, <fmt> description 
-		if ( proto.equals("RTP/AVP") || proto.equals("RTP/SAVP") ) {
+		if ( proto.equals("RTP/AVP") || proto.equals("RTP/SAVP") || proto.equals("RTP/SAVPF") ) {
 			Vector<String> formats = m.getFormatList();
 			Vector<String> names = new Vector<String>(formats.size());
 			Vector<Integer> numbers = new Vector<Integer>(formats.size());
@@ -242,9 +263,11 @@ public class Codecs {
 					// continue ... remote sent bogus rtp setting
 				}
 			};
+			logger.info("got " + numbers.size() + " format numbers");
 		
 			//if we have attrs for format -> set name
-			Vector<AttributeField> attrs = offers.getMediaDescriptor("audio").getAttributes("rtpmap");			
+			Vector<AttributeField> attrs = offers.getMediaDescriptor("audio").getAttributes("rtpmap");
+			logger.info("got " + attrs.size() + " rtpmap attributes");
 			for (AttributeField a : attrs) {
 				String s = a.getValue();
 				// skip over "rtpmap:"
@@ -254,6 +277,7 @@ public class Codecs {
 					String name = s.substring(i + 1);
 					int number = Integer.parseInt(s.substring(0, i));
 					int index = numbers.indexOf(number);
+					logger.info("format offered " + index + ", " + name);
 					if (index >=0)
 						names.set(index, name.toLowerCase());
 				} catch (NumberFormatException e) {
@@ -263,20 +287,21 @@ public class Codecs {
 			
 			Codec codec = null;
 			int index = formats.size() + 1;
-			
+			logger.info("number of local codecs = " + codecs.size());
 			for (Codec c : codecs) {
-				c.update();
+				logger.info("checking " + c.userName() + ", valid = " + c.isValid());
 				if (!c.isValid())
 					continue;
 
 				//search current codec in offers by name
 				int i = names.indexOf(c.userName().toLowerCase());
 				if (i >= 0) {
+					logger.info("adding codec " + c.userName() + " by name");
 					codecmap.set(i, c);
 					if ( (codec==null) || (i < index) ) {
 						codec = c;
 						index = i;
-						break;
+						continue;
 					}
 				}
 				
@@ -284,24 +309,29 @@ public class Codecs {
 				i = numbers.indexOf(c.number());
 				if (i >= 0) {
 						if ( names.elementAt(i).equals("")) {
+							logger.info("adding codec " + c.userName() + " by number");
 							codecmap.set(i, c);
 							if ( (codec==null) || (i < index) )  {
 								//fmt number has no attr with name 
 								codec = c;
 								index = i;
-								break;
+								continue;
 							}
 						}
 				}
 			}			
 			if (codec!=null) 
 				return new Map(numbers.elementAt(index), codec, numbers, codecmap);
-			else
+			else {
 				// no codec found ... we can't talk
+				logger.warning("didn't find any recognised codec");
 				return null;
-		} else
+			}
+		} else {
 			/*formats of other protocols not supported yet*/
+			logger.warning("can't handle protocol: " + proto);
 			return null;
+		}
 	}
 
 	public static class CodecSettings extends PreferenceActivity {
