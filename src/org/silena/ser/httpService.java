@@ -123,6 +123,7 @@ public class httpService extends Service {
               Bitmap capcha = BitmapFactory.decodeStream(stream);
               intent.putExtra(MainConstant.PARAM_RESULT, capcha);
               intent.putExtra(MainConstant.PARAM_TASK, this.task);
+              Log.d(LOG_TAG, "Capcha load");
               break;
 
           case MainConstant.METHOD_POST:
