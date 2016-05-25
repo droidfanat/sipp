@@ -671,6 +671,7 @@
 /home/admin2/SILENAgit/bin/classes/com/jstun/demo/DiscoveryTest.class \
 /home/admin2/SILENAgit/bin/classes/com/jstun/demo/DiscoveryTestDemo.class \
 /home/admin2/SILENAgit/bin/dexedLibs/opentelecoms.org-util-10ceb57a3dd81ffb01ea5c505fe333e7.jar \
+/home/admin2/SILENAgit/bin/dexedLibs/gsm-codec-1.0.2.GA-sources-3a3b698f2fcb8c8ff9dd102836b07866.jar \
 /home/admin2/SILENAgit/bin/dexedLibs/opentelecoms.org-zrtp-b405a0eba5dcd4217a6e8d0a8c8ece94.jar \
 /home/admin2/SILENAgit/bin/dexedLibs/org.xbill.dns_2.1.1-f7493d7bd7b248be5db19b4b51c7df8b.jar \
 /home/admin2/SILENAgit/bin/dexedLibs/zbar-106cd8743843044ce6edc9986b89604e.jar \

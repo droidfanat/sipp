@@ -10,7 +10,7 @@ package org.silena.ser;
  * @author admin2
  */
 
-import android.app.AlertDialog;
+
 import static org.silena.main.MainActivity.LOG_TAG;
 import org.silena.main.MainConstant;
 import java.util.concurrent.ExecutorService;
@@ -46,7 +46,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import static org.apache.http.params.CoreProtocolPNames.USER_AGENT;
 import org.apache.http.util.EntityUtils;
-import org.silena.R;
 import org.silena.main.MainSettings;
 import org.silena.main.ServerApi;
 import org.sipdroid.sipua.ui.Receiver;
@@ -117,127 +116,163 @@ public class httpService extends Service {
       Log.d(LOG_TAG, "Service http start");
      
 
-      if(this.task== MainConstant.METHOD_BITMAP ){
-            stream = httpget(this.url);
-       Bitmap  capcha =  BitmapFactory.decodeStream(stream);
-       intent.putExtra(MainConstant.PARAM_RESULT,capcha);
-       intent.putExtra(MainConstant.PARAM_TASK, this.task);
-      }
+      
+      switch (this.task) {
+          case MainConstant.METHOD_BITMAP:
+              stream = httpget(this.url);
+              Bitmap capcha = BitmapFactory.decodeStream(stream);
+              intent.putExtra(MainConstant.PARAM_RESULT, capcha);
+              intent.putExtra(MainConstant.PARAM_TASK, this.task);
+              break;
+
+          case MainConstant.METHOD_POST:
+              String result = httpPost(this.url, this.post);
+              intent.putExtra(MainConstant.PARAM_RESULT, result);
+              intent.putExtra(MainConstant.PARAM_TASK, this.task);
+             break;
+    
+    case MainConstant.METHOD_GETBALANCE:  
+ 
+        String json = getBAlance();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        ServerApi regapi = gson.fromJson(json, ServerApi.class);
+
+        switch (regapi.getCode()) {
+            case 401:
+                intent.putExtra(MainConstant.PARAM_RESULT, regapi.getBalans());
+                Log.d(MainConstant.LOG_TAG, "Service regapi get balance :" + regapi.getBalans());
+                break;
+
+            case 403:
+                this.task = MainConstant.METHOD_REGISTRATION;
+                break;
+
+            case 404:
+                regustred = false;
+                intent.putExtra(MainConstant.PARAM_RESULT, "0");
+                Log.d(MainConstant.LOG_TAG, "Service regapi get balance :" + regapi.getCode());
+                break;
+        }
+
+        intent.putExtra(MainConstant.PARAM_TASK, this.task);
+ break;     
   
-       if(this.task== MainConstant.METHOD_POST ){
-       String  result = httpPost(this.url,this.post);
-             
-       intent.putExtra(MainConstant.PARAM_RESULT,result);
-       intent.putExtra(MainConstant.PARAM_TASK, this.task);
-      } 
+     
+      
+          case MainConstant.METHOD_CALLBACK:
+              initCallback(this.post);
+break;
+  
+              
+              
+          case MainConstant.METHOD_BALANCEHISTORY :
+      intent.putExtra(MainConstant.PARAM_TASK, this.task);    
+      json =null;  
+      String[] param = loadParam();
+      gson = new GsonBuilder().setPrettyPrinting().create();
+      regapi = new ServerApi(119,param[0],null, null,null, 30, null,null);
+      json = gson.toJson(regapi);
+      json = httpPost(MainConstant.SERV_URL,json);    
+      regapi = gson.fromJson(json, ServerApi.class);
+      
+             switch (regapi.getCode()) {
+                case 401:  
+      intent.putExtra(MainConstant.PARAM_RESULT,regapi.getBalanceHistory());
+      intent.putExtra(MainConstant.PARAM_TASK, this.task);
+                 break;
+              case 404:
+                              regustred = false;    
+              String[] list = null;
+              intent.putExtra(MainConstant.PARAM_RESULT,list);
+              intent.putExtra(MainConstant.PARAM_TASK, this.task);         
+              break;              
+      
+                 
+       }      
+
+   break;      
+          
+           
+              
+          case MainConstant.METHOD_TRANSACTION:
+              json = null;
+              param = loadParam();
+              gson = new GsonBuilder().setPrettyPrinting().create();
+              regapi = new ServerApi(125, param[0], null, null, null, 30, null, post);
+              json = gson.toJson(regapi);
+              json = httpPost(MainConstant.SERV_URL, json);
+              regapi = gson.fromJson(json, ServerApi.class);
+              Log.d(MainConstant.LOG_TAG, "Service response Update Balance code  :" + regapi.getCode());
+
+              intent.putExtra(MainConstant.PARAM_RESULT, regapi.getCode());
+              intent.putExtra(MainConstant.PARAM_TASK, this.task);
+
+break;
+
+
+      case MainConstant.METHOD_REGISTRATION: 
+      
+          Long tsLong = System.currentTimeMillis() / 1000;
+          if (regustred == true || (tsLong.intValue() - regustredTime) < (0 * 12 * 60 * 60)) {
+              Log.d(MainConstant.LOG_TAG, "Service Registration time :" + regustredTime);
+          } else {
+
+              param = loadParam();
+              gson = new GsonBuilder().setPrettyPrinting().create();
+              regapi = new ServerApi(104, param[0], null, null, param[1], 30, null, null);
+              json = gson.toJson(regapi);
+              json = httpPost(MainConstant.SERV_URL, json);
+              Log.d(MainConstant.LOG_TAG, "Service Registration response" + json);
+              regapi = gson.fromJson(json, ServerApi.class);
+
+              switch (regapi.getCode()) {
+                  case 401:
+                      regustred = true;
+                      regustredTime = tsLong.intValue();
+                      Log.d(MainConstant.LOG_TAG, "Service Registration time :" + regustredTime);
+                      postSettings();
+                      intent.putExtra(MainConstant.PARAM_RESULT, 401);
+
+                      break;
+
+                  case 403:
+                      intent.putExtra(MainConstant.PARAM_RESULT, 403);
+                      break;
+
+                  case 404:
+                      regustred = false;
+                      break;
+              }
+          }
+          Log.d(MainConstant.LOG_TAG, "Service main task :" + this.task);
+          intent.putExtra(MainConstant.PARAM_TASK, this.task);
+
+          break;
+      
+
+
+
+
+
+      }
+      
+      
+  
+
          
        
        
-      if(this.task== MainConstant.METHOD_POST ){
-       String  result = httpPost(this.url,this.post);
-             
-       intent.putExtra(MainConstant.PARAM_RESULT,result);
-       intent.putExtra(MainConstant.PARAM_TASK, this.task);
-      }  
+ 
         
-      
-      if(this.task== MainConstant.METHOD_GETBALANCE){
-            
-     String json= getBAlance();  
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-     ServerApi regapi = gson.fromJson(json, ServerApi.class); 
-    
-       switch (regapi.getCode()) {
-                case 401:
-               intent.putExtra(MainConstant.PARAM_RESULT,regapi.getBalans());
-                Log.d(MainConstant.LOG_TAG, "Service regapi get balance :" + regapi.getBalans());
-                    break;
-                
-                case 403:  
-                  this.task= MainConstant.METHOD_REGISTRATION;
-                    break;
-      }  
-      
-      intent.putExtra(MainConstant.PARAM_TASK, this.task); 
-      }  
-      
-      
-     if(this.task== MainConstant.METHOD_REGISTRATION ){
-       Long tsLong  =  System.currentTimeMillis()/1000;
-      if( regustred == true  || (tsLong.intValue()-regustredTime)< (0 * 12 * 60 * 60)){
-        Log.d(MainConstant.LOG_TAG, "Service Registration time :" + regustredTime);     
-           }else{
-      
-      String json =null;      
-      String[] param = loadParam();
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      ServerApi regapi = new ServerApi(104,param[0],null,null,param[1],30,null,null);
-      json = gson.toJson(regapi);
-      json = httpPost(MainConstant.SERV_URL,json);
-      Log.d(MainConstant.LOG_TAG, "Service Registration response" + json);  
-      regapi = gson.fromJson(json, ServerApi.class);
-      
-                  switch (regapi.getCode()) {
-                case 401:
-                    regustred = true;      
-                    regustredTime=tsLong.intValue();
-                    Log.d(MainConstant.LOG_TAG, "Service Registration time :" + regustredTime);                   
-                    postSettings();
-               intent.putExtra(MainConstant.PARAM_RESULT,401);
 
-                    break;
-                
-                case 403:  
-                  intent.putExtra(MainConstant.PARAM_RESULT,403);
-                    break;
-                     }
       
-           }
-      Log.d(MainConstant.LOG_TAG, "Service main task :" + this.task);
-      intent.putExtra(MainConstant.PARAM_TASK, this.task);         
-      }
+      
 
      
-      if(this.task== MainConstant.METHOD_CALLBACK ){
-      initCallback(this.post);      
-      }
-     
-      
-      if (this.task== MainConstant.METHOD_BALANCEHISTORY ){
+  
 
-          
-          
-          
-          
-      intent.putExtra(MainConstant.PARAM_TASK, this.task);    
-      String json =null;  
-      String[] param = loadParam();
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      ServerApi regapi = new ServerApi(119,param[0],null, null,null, 30, null,null);
-      json = gson.toJson(regapi);
-      json = httpPost(MainConstant.SERV_URL,json);
-      regapi = gson.fromJson(json, ServerApi.class); 
-      intent.putExtra(MainConstant.PARAM_RESULT,regapi.getBalanceHistory());
-      intent.putExtra(MainConstant.PARAM_TASK, this.task);
-      }
      
-     
-        if (this.task == MainConstant.METHOD_TRANSACTION) {
 
-            String json = null;
-            String[] param = loadParam();
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            ServerApi regapi = new ServerApi(125, param[0], null, null, null, 30, null,post);
-            json = gson.toJson(regapi);
-            json = httpPost(MainConstant.SERV_URL,json);
-            regapi = gson.fromJson(json, ServerApi.class);           
-            Log.d(MainConstant.LOG_TAG, "Service response Update Balance code  :"+ regapi.getCode());
-            
-            intent.putExtra(MainConstant.PARAM_RESULT,regapi.getCode());
-            intent.putExtra(MainConstant.PARAM_TASK, this.task);
-            
-              
-        }
       
       
       
@@ -301,7 +336,7 @@ public void saveParam(MainSettings api) {
          api.setDOMAIN();
          api.setPORT();
          api.setPROTOCOL();
-         api.setCODECS();
+        // api.setCODECS();
     }    
     
     
@@ -387,9 +422,7 @@ public String[] loadParam() {
                         int responseCode = response.getStatusLine().getStatusCode();
             Log.d(LOG_TAG,"Response code,"+responseCode);
             switch (responseCode) {
-                case 200:
-                           
-                    
+                case 200:         
                     cookies = response.getLastHeader("Set-Cookie") == null ? cookies
                       : response.getLastHeader("Set-Cookie").toString().replace("Set-Cookie:","");
                     HttpEntity entity = response.getEntity();
@@ -406,7 +439,9 @@ public String[] loadParam() {
         
         
         } catch (IOException ex) {
-            Logger.getLogger(httpService.class.getName()).log(Level.SEVERE, null, ex);
+          Log.d(LOG_TAG,"Service Response post Server fault:");
+            //Logger.getLogger(httpService.class.getName()).log(Level.SEVERE, null, ex);
+            result="{\"code\":404}";
         }
 
         

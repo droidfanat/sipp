@@ -159,6 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                             case MainConstant.METHOD_BALANCEHISTORY:
                                 billing_list = intent.getStringArrayExtra(MainConstant.PARAM_RESULT);
+                                if ( billing_list==null) break;
                                 ViewHistory();
                                 Log.d(MainConstant.LOG_TAG, "Service GET BALANCELIST  Result" + billing_list[0]);
                                 break;

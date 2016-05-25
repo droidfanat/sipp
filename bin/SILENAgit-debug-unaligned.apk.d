@@ -2,6 +2,7 @@
 /home/admin2/SILENAgit/bin/SILENAgit.ap_ \
 /home/admin2/SILENAgit/bin/classes.dex \
 /home/admin2/SILENAgit/libs/opentelecoms.org-util.jar \
+/home/admin2/SILENAgit/libs/gsm-codec-1.0.2.GA-sources.jar \
 /home/admin2/SILENAgit/libs/opentelecoms.org-zrtp.jar \
 /home/admin2/SILENAgit/libs/org.xbill.dns_2.1.1.jar \
 /home/admin2/SILENAgit/libs/zbar.jar \
@@ -13,7 +14,9 @@
 /home/admin2/SILENAgit/libs/armeabi-v7a/libbv16_jni.so \
 /home/admin2/SILENAgit/libs/armeabi-v7a/libOSNetworkSystem.so \
 /home/admin2/SILENAgit/libs/armeabi-v7a/libilbc_jni.so \
+/home/admin2/SILENAgit/libs/armeabi-v7a/libopus_jni.so \
 /home/admin2/SILENAgit/libs/armeabi-v7a/libspeex_jni.so \
+/home/admin2/SILENAgit/libs/armeabi-v7a/libsilk8_jni.so \
 /home/admin2/SILENAgit/libs/armeabi/libgsm_jni.so \
 /home/admin2/SILENAgit/libs/armeabi/libg729_jni.so \
 /home/admin2/SILENAgit/libs/armeabi/libg722_jni.so \
@@ -22,6 +25,15 @@
 /home/admin2/SILENAgit/libs/armeabi/libbv16_jni.so \
 /home/admin2/SILENAgit/libs/armeabi/libOSNetworkSystem.so \
 /home/admin2/SILENAgit/libs/armeabi/libilbc_jni.so \
+/home/admin2/SILENAgit/libs/armeabi/libopus_jni.so \
 /home/admin2/SILENAgit/libs/armeabi/libspeex_jni.so \
+/home/admin2/SILENAgit/libs/armeabi/libsilk8_jni.so \
+/home/admin2/SILENAgit/libs/x86/libgsm_jni.so \
+/home/admin2/SILENAgit/libs/x86/libg722_jni.so \
 /home/admin2/SILENAgit/libs/x86/libiconv.so \
 /home/admin2/SILENAgit/libs/x86/libzbarjni.so \
+/home/admin2/SILENAgit/libs/x86/libbv16_jni.so \
+/home/admin2/SILENAgit/libs/x86/libOSNetworkSystem.so \
+/home/admin2/SILENAgit/libs/x86/libopus_jni.so \
+/home/admin2/SILENAgit/libs/x86/libspeex_jni.so \
+/home/admin2/SILENAgit/libs/x86/libsilk8_jni.so \
