@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#36363f">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:weightSum="50" >
+
+
+
+            <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="#c2c2c2"
+                    android:textSize="22dp"
+                android:text="@string/phone_number" />
+
+
+
+
+
+        <EditText
+            android:id="@+id/regphone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/hint2"
+            android:inputType="phone"
+            android:layout_marginTop="10dp"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:gravity="center_horizontal" />
+
+        <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="#c2c2c2"
+                    android:textSize="22dp"
+            android:text="@string/capchaString"
+            android:layout_marginTop="10dp" />
+            <com.dd.ShadowLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:sl_shadowRadius="3dp"
+                app:sl_shadowColor="#77000000"
+                app:sl_dx="1.5dp"
+                app:sl_dy="1.5dp"
+                android:layout_margin="3dp"
+                android:id="@+id/view">
+                <RelativeLayout
+                    android:id="@+id/LinearLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="#000000"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/capcha"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:background="#000000"
+                        android:src="@drawable/index_black"
+                        android:layout_marginTop="5dp" />
+
+                </RelativeLayout>
+            </com.dd.ShadowLayout>
+
+        <EditText
+            android:id="@+id/regcapcha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/capcha"
+            android:inputType="textPersonName"
+            android:layout_marginTop="10dp"
+            android:textColor="#fff"
+            android:textSize="30dp"
+            android:gravity="center_horizontal" />
+        <Button
+            android:id="@+id/reg_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/next"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/selector_button_dialer"
+            android:textColor="#fff" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

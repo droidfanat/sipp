@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Android Projects\\sipp2\\app\\build\\intermediates\\res\\merged\\debug\\layout-finger\\dtmf_twelve_key_dialer.xml",
+        "source": "C:\\Android Projects\\sipp2\\app\\src\\main\\res\\layout-finger\\dtmf_twelve_key_dialer.xml"
+    },
+    {
+        "merged": "C:\\Android Projects\\sipp2\\app\\build\\intermediates\\res\\merged\\debug\\layout-finger\\dtmf_display.xml",
+        "source": "C:\\Android Projects\\sipp2\\app\\src\\main\\res\\layout-finger\\dtmf_display.xml"
+    },
+    {
+        "merged": "C:\\Android Projects\\sipp2\\app\\build\\intermediates\\res\\merged\\debug\\layout-finger\\dialpad.xml",
+        "source": "C:\\Android Projects\\sipp2\\app\\src\\main\\res\\layout-finger\\dialpad.xml"
+    }
+]

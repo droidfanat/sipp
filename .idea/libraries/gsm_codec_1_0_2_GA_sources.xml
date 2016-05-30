@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gsm-codec-1.0.2.GA-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/gsm-codec-1.0.2.GA-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

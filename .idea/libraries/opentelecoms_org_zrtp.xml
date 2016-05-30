@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="opentelecoms.org-zrtp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/opentelecoms.org-zrtp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

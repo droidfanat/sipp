@@ -1,0 +1,11 @@
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$5$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\fragments\ContactsFragment$1$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$6$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$4$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$3$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$2$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\MainActivity$SectionsPagerAdapter$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\fragments\ContactsFragment$override.class
+CHANGED,C:\Android Projects\sipp2\app\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\org\silena\main\fragments\ContactsFragment$2$override.class

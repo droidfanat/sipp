@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" translatable="false">A\'lo</string>
+    <string name="phone_number" translatable="false">Please your phone number</string>
+    <string name="hint2" translatable="false">+795100000001</string>
+    <string name="error_phone" translatable="false">Error number not valid</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="error_internet" translatable="false">Check Internet</string>
+    <string name="capcha" translatable="false">Capcha code hair</string>
+    <string name="capchaString" translatable="false">Enter code from the image</string>
+    <string name="error_capcha" translatable="false">Capcha Error</string>
+    <string name="start" translatable="false">Start</string>
+    <string name="back" translatable="false">CallBack</string>
+
+    <string name="pstn_name" translatable="false">Phone Call</string>
+    <string name="sip_name" translatable="false">Sipdroid Call, when available</string>
+
+<string name="about" translatable="false">Sipdroid is an open-source SIP client for Android
+\n
+\nSee http://sipdroid.org for more info
+\n
+\nVersion ${VERSION}
+\nThe software has been released for testing.
+\n
+\nCopyright (C) 2009 The Sipdroid Open Source Project (http://sipdroid.org)
+\nCopyright (C) 2008 Hughes Systique Corporation, USA (http://hsc.com)
+\nCopyright (C) 2006 The Android Open Source Project (http://android.com)
+\nCopyright (C) 2005 Luca Veltri - University of Parma - Italy (http://mjsip.org)
+\n
+\nThis program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+\n
+\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details (http://www.gnu.org/licenses).</string>
+
+    <string name="reg" translatable="false">Registering...</string>
+    <string name="regpref" translatable="false">Preferred</string>
+    <string name="regclick" translatable="false">Click to select</string>
+    <string name="regfailed" translatable="false">Registration failed</string>
+
+    <string name="voicemail" translatable="false">Message(s) Waiting</string>
+
+    <string name="auto_enabled" translatable="false">Auto-Answer/Speakerphone</string>
+    <string name="auto_disabled" translatable="false">Auto-Answer off</string>
+    <string name="hint" translatable="false">Called Party Address</string>
+    <string name="empty" translatable="false">Please enter called party address as name@domain.com</string>
+    <string name="notfast" translatable="false">No suitable data network available</string>
+
+    <string name="settings_account" translatable="false">SIP Account</string>
+    <string name="settings_line" translatable="false">Line</string>
+    <string name="settings_username" translatable="false">Authorization Username</string>
+    <string name="settings_password" translatable="false">Password</string>
+    <string name="settings_server" translatable="false">Server or Proxy</string>
+    <string name="settings_domain" translatable="false">Domain</string>
+    <string name="settings_domain2" translatable="false">Leave empty if same as server</string>
+    <string name="settings_username1" translatable="false">Username or Caller ID</string>
+    <string name="settings_callerid2" translatable="false">Leave empty if same as authorization username</string>
+    <string name="settings_port" translatable="false">Port</string>
+    <string-array name="port_display_values2" translatable="false">
+        <item>53</item>
+        <item>69</item>
+        <item>80</item>
+        <item>135</item>
+        <item>161</item>
+        <item>443</item>
+        <item>500</item>
+        <item>1433</item>
+        <item>1701</item>
+        <item>1812</item>
+        <item>3389</item>
+        <item>4500</item>
+        <item>5060 (standard)</item>
+        <item>5061</item>
+        <item>5070</item>
+        <item>5900</item>
+        <item>16999</item>
+        <item>26999</item>
+        <item>36999</item>
+        <item>custom</item>
+    </string-array>
+    <string-array name="port_values2" translatable="false">
+        <item>53</item>
+        <item>69</item>
+        <item>80</item>
+        <item>135</item>
+        <item>161</item>
+        <item>443</item>
+        <item>500</item>
+        <item>1433</item>
+        <item>1701</item>
+        <item>1812</item>
+        <item>3389</item>
+        <item>4500</item>
+        <item>5060</item>
+        <item>5061</item>
+        <item>5070</item>
+        <item>5900</item>
+        <item>16999</item>
+        <item>26999</item>
+        <item>36999</item>
+        <item>0</item>
+    </string-array>
+
+    <string name="settings_protocol" translatable="false">Protocol</string>
+    <string-array name="protocol_display_values2" translatable="false">
+        <item>UDP (less standby on 3G)</item>
+        <item>TCP (longer standby on 3G)</item>
+        <item>TLS (encrypted)</item>
+    </string-array>
+    <string-array name="protocol_values2" translatable="false">
+        <item>udp</item>
+        <item>tcp</item>
+        <item>tls</item>
+    </string-array>
+    <string name="settings_vquality" translatable="false">Video Quality</string>
+    <string-array name="vquality_display_values" translatable="false">
+        <item>High (352x288 @ 360kbit)</item>
+        <item>Low (176x144 @ 192kbit)</item>
+    </string-array>
+    <string-array name="vquality_values" translatable="false">
+        <item>high</item>
+        <item>low</item>
+    </string-array>
+    <string name="settings_stun" translatable="false">Use STUN Server</string>
+    <string name="settings_stun_server" translatable="false">STUN Server name</string>
+    <string name="settings_stun_server_port" translatable="false">STUN Server port</string>
+
+    <string name="settings_mmtel" translatable="false">Use MMTel flavor</string>
+    <string name="settings_mmtel_qvalue" translatable="false">Q value</string>
+
+    <string name="settings_options" translatable="false">Call Options</string>
+    <string name="settings_wlan" translatable="false">Use WLAN</string>
+    <string name="settings_3g" translatable="false">Use 3G</string>
+    <string name="settings_edge" translatable="false">Use EDGE</string>
+    <string name="settings_vpn" translatable="false">Use VPN</string>
+    <string name="settings_check" translatable="false">Check with your mobile operator if he allows VoIP</string>
+    <string name="settings_vpn2" translatable="false">PBXes offers free VPN service, see PBXes >> HELP</string>
+
+<string name="dialog_default" translatable="false">Sipdroid is not currently set as default phone. Would you like to make it as default phone?
+\n
+\nIf you answer \'No\' here, you can still dial over Sipdroid from the system by adding \'+\' behind a number in Dialer, or by selecting \'text to\' in Contacts.</string>
+    <string name="dialog_message" translatable="false">Would you like to see a message from Pascal introducing Sipdroid 1.5?</string>
+    <string name="dialog_port" translatable="false">Would you like to change SIP port from 5060 to 5061 for improved reliability?</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="dontask" translatable="false">Don\'t ask me again</string>
+
+    <string name="settings_pref" translatable="false">Preferred Call Type</string>
+    <string name="settings_pref2" translatable="false">Override by adding \'+\' behind a number in Dialer, or by selecting \'text to\' in Contacts</string>
+    <string-array name="pref_display_values" translatable="false">
+        <item>Sipdroid only</item>
+        <item>Sipdroid, when available</item>
+        <item>Phone</item>
+        <item>Always ask</item>
+    </string-array>
+    <string-array name="pref_values" translatable="false">
+        <item>SIPONLY</item>
+        <item>SIP</item>
+        <item>PSTN</item>
+        <item>ASK</item>
+    </string-array>
+    <string name="settings_compression" translatable="false">Voice Compression</string>
+    <string-array name="compression_display_values" translatable="false">
+        <item>Only over WLAN</item>
+        <item>Only over WLAN and 3G</item>
+        <item>Always try</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="compression_values" translatable="false">
+        <item>wlan</item>
+        <item>wlanor3g</item>
+        <item>always</item>
+        <item>never</item>
+    </string-array>
+    <string name="settings_auto_on" translatable="false">Auto-Answer in use</string>
+    <string name="settings_auto_on2" translatable="false">Short vibrating alert when screen is on</string>
+    <string name="settings_auto_ondemand" translatable="false">Auto-Answer on demand</string>
+    <string name="settings_auto_ondemand2" translatable="false">Show toggle switch in status bar</string>
+    <string name="settings_auto_headset" translatable="false">Auto-Answer headset</string>
+    <string name="settings_auto_headset2" translatable="false">When wired headset is connected</string>
+    <string name="settings_callrecord" translatable="false">Record calls</string>
+    <string name="settings_callrecord2" translatable="false">Record all voice calls to SD card</string>
+
+    <string name="settings_notifications" translatable="false">Notifications</string>
+    <string name="settings_MWI" translatable="false">Voicemail</string>
+    <string name="settings_MWI2" translatable="false">Subscribe to SIP message waiting</string>
+    <string name="settings_reg" translatable="false">Registration</string>
+    <string name="settings_reg2" translatable="false">Allows selection of preferred SIP account</string>
+    <string name="settings_notify" translatable="false">Missed Call</string>
+    <string name="settings_notify2" translatable="false">Notify with blue LED</string>
+    <string name="settings_nodata" translatable="false">No Data</string>
+    <string name="settings_nodata2" translatable="false">Indicate missing voice packets by audible tones</string>
+
+    <string name="settings_advanced_options" translatable="false">Advanced Options</string>
+    <string name="settings_av_options" translatable="false">Audio/Video</string>
+    <string name="settings_policy_never" translatable="false">Changed system sleep policy to keep Wi-Fi on.</string>
+    <string name="settings_policy_default" translatable="false">Reset Wi-Fi sleep policy to default.</string>
+    <string name="settings_search" translatable="false">Search &amp; Replace</string>
+    <string name="settings_excludepat" translatable="false">Exclude Pattern</string>
+    <string name="settings_sipringtone" translatable="false">SIP Ringtone</string>
+    <string name="settings_sipringtone2" translatable="false">Set ringtone for incoming SIP call</string>
+    <string name="settings_sipringtone_dialog" translatable="false">Ringtones</string>
+    <string name="settings_eargain" translatable="false">Earpiece Gain</string>
+    <string name="settings_micgain" translatable="false">Microphone Gain</string>
+    <string name="settings_heargain" translatable="false">Headset Gain</string>
+    <string name="settings_hmicgain" translatable="false">Headset Mic</string>
+    <string-array name="eargain_display_values" translatable="false">
+        <item>Low (no echo)</item>
+        <item>Medium</item>
+        <item>High (may cause echo to remote party)</item>
+        <item>Highest</item>
+    </string-array>
+    <string-array name="eargain_values" translatable="false">
+        <item>0.1</item>
+        <item>0.25</item>
+        <item>0.5</item>
+        <item>1.0</item>
+    </string-array>
+
+    <string name="settings_pbxes_options" translatable="false">PBXes Features</string>
+    <string name="settings_par" translatable="false">Simultaneous Outbound</string>
+    <string name="settings_par2" translatable="false">Dials all of one person\'s phone numbers in parallel</string>
+    <string name="settings_improve" translatable="false">Improve Audio</string>
+    <string name="settings_improve2" translatable="false">requires paid account</string>
+    <string name="settings_hdvoice" translatable="false">PBXes supports HD Voice</string>
+    <string name="settings_posurl" translatable="false">URL for Location/Callback</string>
+    <string name="settings_pos" translatable="false">Update Location</string>
+    <string name="settings_pos2" translatable="false">Can be announced to PBXes contacts (requires premium account)</string>
+    <string name="settings_pos3" translatable="false">Updating location</string>
+    <string name="settings_callback" translatable="false">Trigger Callback</string>
+    <string name="settings_callback2" translatable="false">If no suitable data network available</string>
+    <string name="settings_callthru" translatable="false">Trigger Callthru</string>
+    <string name="settings_callthru2" translatable="false">Prefix for Callthru</string>
+
+    <string name="settings_title" translatable="false">Sipdroid settings</string>
+
+    <string name="settings_profile_title" translatable="false">Sipdroid Settings (<xliff:g id="profile">%s</xliff:g>)</string>
+    <string name="settings_profile_menu_import" translatable="false">Import</string>
+    <string name="settings_profile_menu_export" translatable="false">Export</string>
+    <string name="settings_profile_menu_delete" translatable="false">Delete</string>
+    <string name="settings_profile_dialog_profiles_title" translatable="false">Profiles</string>
+    <string name="settings_profile_dialog_delete_title" translatable="false">Delete profile</string>
+    <string name="settings_profile_dialog_delete_text" translatable="false">Do you really want to delete <xliff:g id="profile">%s</xliff:g> profile?</string>
+    <string name="settings_profile_export_error" translatable="false">Can not export settings!</string>
+    <string name="settings_profile_import_error" translatable="false">Can not import settings!</string>
+    <string name="settings_profile_delete_error" translatable="false">Can not delete this profile!</string>
+    <string name="settings_profile_delete_confirmation" translatable="false">Profile has been deleted.</string>
+
+    <string name="settings_wireless_options" translatable="false">Wireless</string>
+    <string name="settings_bluetooth" translatable="false">Requires Android 2.2 or higher</string>
+    <string name="settings_keepon" translatable="false">Screen on</string>
+    <string name="settings_keepon2" translatable="false">Required by some devices for trouble-free Wi-Fi</string>
+    <string name="settings_selectwifi" translatable="false">Select Wi-Fi AP</string>
+    <string name="settings_selectwifi2" translatable="false">By signal level</string>
+    <string name="settings_ownwifi" translatable="false">Control Wi-Fi Power</string>
+    <string name="settings_ownwifi2" translatable="false">Saves battery</string>
+
+    <string name="menu_settings" translatable="false">Settings</string>
+    <string name="menu_balance" translatable="false">Balance</string>
+    <string name="menu_exit" translatable="false">Exit</string>
+    <string name="menu_about" translatable="false">About</string>
+    <string name="menu_dtmf" translatable="false">Send DTMF</string>
+    <string name="menu_video" translatable="false">Send Video</string>
+    <string name="menu_call" translatable="false">Dial</string>
+    <string name="menu_mute" translatable="false">Mute</string>
+    <string name="menu_hold" translatable="false">Hold</string>
+    <string name="menu_transfer" translatable="false">Transfer</string>
+    <string name="menu_speaker" translatable="false">Speaker</string>
+    <string name="menu_endCall" translatable="false">End call</string>
+    <string name="menu_answer" translatable="false">Answer</string>
+    <string name="menu_bluetooth" translatable="false">Bluetooth (experimental)</string>
+
+
+    <string name="scan" translatable="false">Scan</string>
+
+
+    <string name="transfer_title" translatable="false">Transfer Call to</string>
+
+    <string name="card_title_dialing" translatable="false">Dialing</string>
+    <string name="card_title_in_progress" translatable="false">Call in progress</string>
+    <string name="card_title_incoming_call" translatable="false">Incoming call</string>
+    <string name="card_title_call_ended" translatable="false">Call ended</string>
+    <string name="card_title_ended_no_codec" translatable="false">ERROR: Codecs Incompatible</string>
+    <string name="card_title_on_hold" translatable="false">On hold</string>
+
+    <string name="unknown" translatable="false">Unknown</string>
+
+    <string name="slide_hint_down_to_end_call" translatable="false">Slide down to end call.</string>
+    <string name="slide_hint_up_to_answer" translatable="false">Slide up to answer.</string>
+
+    <string name="ongoing" translatable="false">Current Call</string>
+    <string name="onHold" translatable="false">On hold</string>
+    <string name="codecs" translatable="false">Audio Codecs</string>
+    <string name="codecs_summary" translatable="false">Select Audio Codecs to be available for voice calls</string>
+    <string name="codecs_move" translatable="false">Move this codec</string>
+    <string name="codecs_move_up" translatable="false">Move up one place</string>
+    <string name="codecs_move_down" translatable="false">Move down one place</string>
+
+    <string name="help_speakerphone" translatable="false">Press and hold volume buttons to force talk</string>
+    <string name="menu_create" translatable="false">New PBX linked to my Google Voice</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>
+
+

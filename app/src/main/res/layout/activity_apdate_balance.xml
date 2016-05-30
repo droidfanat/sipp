@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#36363f">
+
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:weightSum="50" >
+
+
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#c2c2c2"
+                android:textSize="22dp"
+                android:text="Please enter voucher number" />
+
+
+
+
+
+            <EditText
+                android:id="@+id/regphone"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:hint="0000000000000000"
+                android:inputType="phone"
+                android:layout_marginTop="5dp"
+                android:textColor="#fff"
+                android:textSize="28dp"
+                android:gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Ok"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/selector_button_dialer"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/textView122"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:textColor="#1b1b1b"
+                android:textSize="22dp"
+                android:text="or"
+                android:gravity="center_vertical|center_horizontal" />
+
+            <Button
+                android:id="@+id/scan_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Scan QR code"
+                android:background="@drawable/selector_button_dialer"
+                android:textColor="#fff" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
