@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Android Projects\sipp2\app\src\androidTest\assets"/><source path="C:\Android Projects\sipp2\app\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Android Projects\sippstok\app\src\androidTest\assets"/><source path="C:\Android Projects\sippstok\app\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>

@@ -1,27 +1,14 @@
 package org.silena.main.fragments;
 
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.silena.R;
 import org.silena.main.MainActivity;
 import org.silena.main.adapter.CallAdapter;

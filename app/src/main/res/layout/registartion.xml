@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:weightSum="50" >
+            android:layout_marginRight="30dp" >
 
 
 
@@ -28,9 +27,8 @@
                     android:id="@+id/textView12"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textColor="#c2c2c2"
-                    android:textSize="22dp"
+                android:textColor="#c2c2c2"
+                    android:textSize="22sp"
                 android:text="@string/phone_number" />
 
 
@@ -41,21 +39,19 @@
             android:id="@+id/regphone"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:hint="@string/hint2"
             android:inputType="phone"
             android:layout_marginTop="10dp"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="25sp"
             android:gravity="center_horizontal" />
 
         <TextView
                     android:id="@+id/textView1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textColor="#c2c2c2"
-                    android:textSize="22dp"
+            android:textColor="#c2c2c2"
+                    android:textSize="22sp"
             android:text="@string/capchaString"
             android:layout_marginTop="10dp" />
             <com.dd.ShadowLayout
@@ -82,7 +78,8 @@
                         android:layout_height="80dp"
                         android:background="#000000"
                         android:src="@drawable/index_black"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="5dp"
+                        android:contentDescription="@string/capcha_desc" />
 
                 </RelativeLayout>
             </com.dd.ShadowLayout>
@@ -91,18 +88,16 @@
             android:id="@+id/regcapcha"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:hint="@string/capcha"
             android:inputType="textPersonName"
             android:layout_marginTop="10dp"
             android:textColor="#fff"
-            android:textSize="30dp"
+            android:textSize="25sp"
             android:gravity="center_horizontal" />
         <Button
             android:id="@+id/reg_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:text="@string/next"
             android:layout_marginTop="10dp"
             android:background="@drawable/selector_button_dialer"

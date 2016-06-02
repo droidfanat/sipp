@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import org.silena.main.AppCompatPreferenceActivity;
 import org.sipdroid.codecs.Codecs;
 import org.sipdroid.media.RtpStreamReceiver;
  
@@ -49,7 +48,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Settings extends AppCompatPreferenceActivity implements OnSharedPreferenceChangeListener, OnClickListener {
+public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener, OnClickListener {
 	// Current settings handler
 	private static SharedPreferences settings;
 	// Context definition
@@ -270,7 +269,6 @@ public class Settings extends AppCompatPreferenceActivity implements OnSharedPre
     	if (Receiver.mContext == null) Receiver.mContext = this;
 		addPreferencesFromResource(R.xml.preferences);
 		setDefaultValues();
-		getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.white_splesh));
 	}
 	
 	void reload() {

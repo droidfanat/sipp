@@ -22,7 +22,7 @@ package org.sipdroid.sipua.ui;
 import org.silena.R;
 import org.sipdroid.sipua.SipdroidEngine;
 import org.sipdroid.sipua.UserAgent;
-
+ 
 import org.silena.main.MainActivity;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -97,35 +97,35 @@ import org.zoolu.sip.provider.SipProvider;
 		final static String CATEGORY_CAR_DOCK = "android.intent.category.CAR_DOCK";
 		final static int EXTRA_DOCK_STATE_DESK = 1;
 		final static int EXTRA_DOCK_STATE_CAR = 2;
-
+		
 		public final static int MWI_NOTIFICATION = 1;
 		public final static int CALL_NOTIFICATION = 2;
 		public final static int MISSED_CALL_NOTIFICATION = 3;
 		public final static int AUTO_ANSWER_NOTIFICATION = 4;
 		public final static int REGISTER_NOTIFICATION = 5;
-
+		
 		final static int MSG_SCAN = 1;
 		final static int MSG_ENABLE = 2;
 		final static int MSG_HOLD = 3;
 		final static int MSG_HANGUP = 4;
-
+		
 		final static long[] vibratePattern = {0,1000,1000};
-
+		
 		public static int docked = -1,headset = -1,bluetooth = -1;
 		public static SipdroidEngine mSipdroidEngine;
-
+		
 		public static Context mContext;
 		public static SipdroidListener listener_video;
 		public static Call ccCall;
 		public static Connection ccConn;
 		public static int call_state;
 		public static int call_end_reason = -1;
-
+		
 		public static String pstn_state;
 		public static long pstn_time;
 		public static String MWI_account;
-		private static String laststate,lastnumber;
-
+		private static String laststate,lastnumber;	
+		
 		public static synchronized SipdroidEngine engine(Context context) {
 			if (mContext == null || !context.getClass().getName().contains("ReceiverRestrictedContext"))
 				mContext = context;
@@ -142,10 +142,10 @@ import org.zoolu.sip.provider.SipProvider;
         	context.startService(new Intent(context,RegisterService.class));
 			return mSipdroidEngine;
 		}
-
+		
 		public static Ringtone oRingtone;
 		static PowerManager.WakeLock wl;
-
+				
 		public static void stopRingtone() {
 			if (v != null)
 				v.cancel();
@@ -155,9 +155,9 @@ import org.zoolu.sip.provider.SipProvider;
 				ringtone.stop();
 			}
 		}
-
+		
 		static android.os.Vibrator v;
-
+		
 		public static void onState(int state,String caller) {
 			if (ccCall == null) {
 		        ccCall = new Call();
@@ -204,12 +204,12 @@ import org.zoolu.sip.provider.SipProvider;
 								(rm == AudioManager.RINGER_MODE_VIBRATE ||
 								(rm == AudioManager.RINGER_MODE_NORMAL && vs == AudioManager.VIBRATE_SETTING_ON)))
 							v.vibrate(vibratePattern,1);
-						if (am.getStreamVolume(AudioManager.STREAM_RING) > 0) {
+						if (am.getStreamVolume(AudioManager.STREAM_RING) > 0) {				 
 							String sUriSipRingtone = PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_SIPRINGTONE,
 									Settings.System.DEFAULT_RINGTONE_URI.toString());
 							if(!TextUtils.isEmpty(sUriSipRingtone)) {
 								oRingtone = RingtoneManager.getRingtone(mContext, Uri.parse(sUriSipRingtone));
-								if (oRingtone != null) oRingtone.play();
+								if (oRingtone != null) oRingtone.play();	
 							}
 						}
 					}
@@ -274,10 +274,10 @@ import org.zoolu.sip.provider.SipProvider;
 				RtpStreamReceiver.ringback(false);
 			}
 		}
-
+		
 		static String cache_text;
 		static int cache_res;
-
+		
 		public static void onText(int type,String text,int mInCallResId,long base) {
 			if (mSipdroidEngine != null && type == REGISTER_NOTIFICATION+mSipdroidEngine.pref) {
 				cache_text = text;
@@ -292,6 +292,7 @@ import org.zoolu.sip.provider.SipProvider;
 		        notification.icon = mInCallResId;
 				if (type == MISSED_CALL_NOTIFICATION) {
 			        	notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
 //			        	notification.setLatestEventInfo(mContext, text, mContext.getString(R.string.app_name),
 //			        			PendingIntent.getActivity(mContext, 0, createCallLogIntent(), 0));
 			        	if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_NOTIFY, org.sipdroid.sipua.ui.Settings.DEFAULT_NOTIFY)) {
@@ -304,8 +305,8 @@ import org.zoolu.sip.provider.SipProvider;
 	        		switch (type) {
 		        	case MWI_NOTIFICATION:
 			        	notification.flags |= Notification.FLAG_AUTO_CANCEL;
-						notification.contentIntent = PendingIntent.getActivity(mContext, 0,
-								createMWIIntent(), 0);
+						notification.contentIntent = PendingIntent.getActivity(mContext, 0, 
+								createMWIIntent(), 0);	
 			        	notification.flags |= Notification.FLAG_SHOW_LIGHTS;
 			        	notification.ledARGB = 0xff00ff00; /* green */
 			        	notification.ledOnMS = 125;
@@ -322,9 +323,9 @@ import org.zoolu.sip.provider.SipProvider;
 						            createIntent(ChangeAccount.class), 0);
 		        		else
 		        			notification.contentIntent = PendingIntent.getActivity(mContext, 0,
-
+                                                        
                                                         //STATUS START MAIN ACTIVITY
-
+                                                        
 		        					createIntent(MainActivity.class), 0);
 				        if (mInCallResId == R.drawable.sym_presence_away) {
 				        	notification.flags |= Notification.FLAG_SHOW_LIGHTS;
@@ -333,7 +334,7 @@ import org.zoolu.sip.provider.SipProvider;
 				        	notification.ledOffMS = 2875;
 				        }
 		        		break;
-		        	}
+		        	}			
 		        	notification.flags |= Notification.FLAG_ONGOING_EVENT;
 			        RemoteViews contentView = new RemoteViews(mContext.getPackageName(),
 	                        R.layout.ongoing_call_notification);
@@ -362,7 +363,7 @@ import org.zoolu.sip.provider.SipProvider;
 			if (mSipdroidEngine != null && type >= REGISTER_NOTIFICATION && type != REGISTER_NOTIFICATION+mSipdroidEngine.pref)
 				onText(REGISTER_NOTIFICATION+mSipdroidEngine.pref,cache_text,cache_res,0);
 		}
-
+		
 		static void updateAutoAnswer() {
 			if (PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_AUTO_ONDEMAND, org.sipdroid.sipua.ui.Settings.DEFAULT_AUTO_ONDEMAND) &&
 				Sipdroid.on(mContext)) {
@@ -373,9 +374,9 @@ import org.zoolu.sip.provider.SipProvider;
 			} else
 				updateAutoAnswer(-1);
 		}
-
+		
 		private static int autoAnswerState = -1;
-
+		
 		static void updateAutoAnswer(int status) {
 			if (status != autoAnswerState) {
 				switch (autoAnswerState = status) {
@@ -391,22 +392,22 @@ import org.zoolu.sip.provider.SipProvider;
 				}
 			}
 		}
-
+		
 		public static void registered() {
 			pos(true);
 		}
-
+		
 		static LocationManager lm;
 		static AlarmManager am;
 		static PendingIntent gps_sender,net_sender;
 		static boolean net_enabled;
 		static long loctrydate;
-
+		
 		static final int GPS_UPDATES = 4000*1000;
 		static final int NET_UPDATES = 600*1000;
-
+		
 		public static void pos(boolean enable) {
-
+			
 			if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean(org.sipdroid.sipua.ui.Settings.PREF_POS, org.sipdroid.sipua.ui.Settings.DEFAULT_POS) ||
 			PreferenceManager.getDefaultSharedPreferences(mContext).getString(org.sipdroid.sipua.ui.Settings.PREF_POSURL, org.sipdroid.sipua.ui.Settings.DEFAULT_POSURL).length() < 1) {
 				if (lm != null && am != null) {
@@ -417,7 +418,7 @@ import org.zoolu.sip.provider.SipProvider;
 				}
 				return;
 			}
-
+			
 	        if (lm == null) lm = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 			if (am == null) am = (AlarmManager)mContext.getSystemService(Context.ALARM_SERVICE);
 			pos_gps(false);

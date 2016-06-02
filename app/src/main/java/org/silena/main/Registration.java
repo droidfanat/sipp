@@ -349,13 +349,11 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Process ipProcess = runtime.exec("/system/bin/ping -c 1 78.46.251.139");
         int     exitValue = ipProcess.waitFor();
         return (exitValue == 0);
-//        return true;
 
     } catch (IOException e)          { e.printStackTrace(); } 
       catch (InterruptedException e) { e.printStackTrace(); }
 
     return false;
-//      return true;
 }     
 
 

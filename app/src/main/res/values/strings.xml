@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" translatable="false">A\'lo</string>
+    <string name="action_settings" translatable="false">1</string>
     <string name="phone_number" translatable="false">Please your phone number</string>
     <string name="hint2" translatable="false">+795100000001</string>
     <string name="error_phone" translatable="false">Error number not valid</string>
@@ -300,6 +301,7 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="capcha_desc">capcha</string>
 
 </resources>
 

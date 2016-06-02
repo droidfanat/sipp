@@ -1,15 +1,12 @@
 package org.silena.main;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
@@ -17,9 +14,6 @@ import com.dm.zbar.android.scanner.ZBarScannerActivity;
 import net.sourceforge.zbar.Symbol;
 
 import org.silena.R;
-
-import static org.silena.main.MainConstant.STATUS_BALANCE;
-import static org.silena.main.MainConstant.STATUS_HISTORY;
 
 public class ApdateBalanceActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int ZBAR_SCANNER_REQUEST = 0;
