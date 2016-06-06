@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="opentelecoms.org-util">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/opentelecoms.org-util.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

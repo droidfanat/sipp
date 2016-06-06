@@ -340,13 +340,12 @@ public class SlidingCardManager implements ViewTreeObserver.OnGlobalLayoutListen
 
     /**
      * Handles a touch event on the CallCard.
-     * @see CallCard.dispatchTouchEvent
      */
     /* package */ void handleCallCardTouchEvent(MotionEvent ev) {
         // if (DBG) log("handleCallCardTouchEvent(" + ev + ")...");
 
         if (mInCallScreen == null || mInCallScreen.isFinishing()) {
-            Log.i(LOG_TAG, "handleCallCardTouchEvent: InCallScreen gone; ignoring touch...");
+
             return;
         }
 
@@ -359,9 +358,7 @@ public class SlidingCardManager implements ViewTreeObserver.OnGlobalLayoutListen
         final int yAbsolute = (int) ev.getRawY();
         
         if (isSlideInProgress()) {
-        	long now = SystemClock.elapsedRealtime();
-            if (now-mTouchDownTime > 1000 || InCallScreen.pactive ||
-            		now-InCallScreen.pactivetime < 1000)
+            if (SystemClock.elapsedRealtime()-mTouchDownTime > 1000 || InCallScreen.pactive)
             	abortSlide();
             else
             switch (action) {

@@ -66,6 +66,9 @@ public class httpService extends Service {
     super.onCreate();
     Log.d(LOG_TAG, "Silena http service Start this save http vars");
     es = Executors.newFixedThreadPool(1);
+      if(Receiver.mStart){
+          Log.d(LOG_TAG, "Reciever start true");
+      }
   }
 
   @Override
@@ -364,7 +367,7 @@ public String[] loadParam() {
           HttpGet httppost = new HttpGet(url);
           httppost.setHeader("Host", "78.46.251.139");
           httppost.setHeader("User-Agent", USER_AGENT);
-          httppost.setHeader("Cookie",cookies+";");
+          httppost.setHeader("Cookie",Receiver.mCookies+";");
           httppost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
           httppost.setHeader("Accept-Language", "en-US,en;q=0.5");
           httppost.setHeader("Connection", "keep-alive");
@@ -376,7 +379,7 @@ public String[] loadParam() {
           try {
               response = httpclient.execute(httppost);
 
-              cookies = response.getLastHeader("Set-Cookie") == null ? cookies
+              Receiver.mCookies = response.getLastHeader("Set-Cookie") == null ? Receiver.mCookies
                       : response.getLastHeader("Set-Cookie").toString().replace("Set-Cookie:", "");
              
             HttpEntity entity = response.getEntity();
@@ -413,7 +416,7 @@ public String[] loadParam() {
 	httppost.setHeader("User-Agent", USER_AGENT);
 	httppost.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 	httppost.setHeader("Accept-Language", "en-US,en;q=0.5");
-	httppost.setHeader("Cookie",cookies);
+	httppost.setHeader("Cookie",Receiver.mCookies);
 	httppost.setHeader("Connection", "keep-alive");
 	httppost.setHeader("Referer", "https://xxx/Atlant");
 	httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -423,8 +426,8 @@ public String[] loadParam() {
                         int responseCode = response.getStatusLine().getStatusCode();
             Log.d(LOG_TAG,"Response code,"+responseCode);
             switch (responseCode) {
-                case 200:         
-                    cookies = response.getLastHeader("Set-Cookie") == null ? cookies
+                case 200:
+                    Receiver.mCookies = response.getLastHeader("Set-Cookie") == null ? Receiver.mCookies
                       : response.getLastHeader("Set-Cookie").toString().replace("Set-Cookie:","");
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {

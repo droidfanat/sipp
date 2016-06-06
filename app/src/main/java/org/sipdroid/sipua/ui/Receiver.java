@@ -115,6 +115,9 @@ import org.zoolu.sip.provider.SipProvider;
 		public static SipdroidEngine mSipdroidEngine;
 		
 		public static Context mContext;
+		public static boolean mStart = false;
+		public static String mCookies = null;
+
 		public static SipdroidListener listener_video;
 		public static Call ccCall;
 		public static Connection ccConn;
@@ -125,7 +128,7 @@ import org.zoolu.sip.provider.SipProvider;
 		public static long pstn_time;
 		public static String MWI_account;
 		private static String laststate,lastnumber;	
-		
+
 		public static synchronized SipdroidEngine engine(Context context) {
 			if (mContext == null || !context.getClass().getName().contains("ReceiverRestrictedContext"))
 				mContext = context;
@@ -733,9 +736,17 @@ import org.zoolu.sip.provider.SipProvider;
 	    		return 0;
 	    	return Math.round((scan.level + 113f) / 2f);
 	    }
-	    
-	    static long lastscan;
-	    
+
+
+		public static Context getmContext() {
+			return mContext;
+		}
+
+		static long lastscan;
+
+
+
+
 	    @Override
 		public void onReceive(Context context, Intent intent) {
 	        String intentAction = intent.getAction();

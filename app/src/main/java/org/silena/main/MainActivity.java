@@ -238,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             registerReceiver(br, intFilt);
             registerReceiver(br, new IntentFilter(ACTION_TIME_TICK));
             // BroadcastReceiver
+            Receiver.mStart=true;
             StartService();
 
         }
@@ -419,6 +420,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Receiver.engine(this).halt();
                 Receiver.mSipdroidEngine = null;
                 Receiver.reRegister(0);
+                Receiver.mStart=false;
                 stopService(new Intent(this, RegisterService.class));
                 finish();
                 break;

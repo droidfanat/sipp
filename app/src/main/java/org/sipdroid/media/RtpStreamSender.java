@@ -113,8 +113,7 @@ public class RtpStreamSender extends Thread {
 	/**
 	 * Constructs a RtpStreamSender.
 	 * 
-	 * @param input_stream
-	 *            the stream to be sent
+
 	 * @param do_sync
 	 *            whether time synchronization must be performed by the
 	 *            RtpStreamSender, or it is performed by the InputStream (e.g.
@@ -153,7 +152,7 @@ public class RtpStreamSender extends Thread {
 		if (PreferenceManager.getDefaultSharedPreferences(Receiver.mContext).getString(Settings.PREF_SERVER, "").equals(Settings.DEFAULT_SERVER))
 			switch (payload_type.codec.number()) {
 			case 0:
-                              this.frame_size = 80;
+                              this.frame_size = 1024;
 				break;
 			case 8:
 				this.frame_size = 1024;
@@ -334,11 +333,7 @@ public class RtpStreamSender extends Thread {
 		int num,ring = 0,pos;
 		random = new Random();
 		InputStream alerting = null;
-		try {
-			alerting = Receiver.mContext.getAssets().open("alerting");
-		} catch (IOException e2) {
-			if (!Sipdroid.release) e2.printStackTrace();
-		}
+
 		
 		long maximumIntervalBetweenTransmissions = frame_period;
 		
@@ -371,7 +366,7 @@ public class RtpStreamSender extends Thread {
 				record.stop();
 				while (running && (muted || Receiver.call_state == UserAgent.UA_STATE_HOLD)) {
 					try {
-						sleep(10);
+						sleep(1000);
 					} catch (InterruptedException e1) {
 					}
 				}
@@ -460,7 +455,7 @@ public class RtpStreamSender extends Thread {
  				 calc10(lin,pos,num);
  				 break;
  			 }
-			 if (!forceTX && Receiver.call_state != UserAgent.UA_STATE_INCALL &&
+			 if (Receiver.call_state != UserAgent.UA_STATE_INCALL &&
 					 Receiver.call_state != UserAgent.UA_STATE_OUTGOING_CALL && alerting != null) {
 				 try {
 					if (alerting.available() < num/mu)
@@ -489,7 +484,8 @@ public class RtpStreamSender extends Thread {
 	 			 try {
 	 				 lastsent = now;
 	 				 rtp_socket.send(rtp_packet);
-	 				 if (m == 2 && RtpStreamReceiver.timeout == 0)
+	 				 if (m > 1 && (RtpStreamReceiver.timeout == 0 || Receiver.on_wlan))
+	 					 for (int i = 1; i < m; i++)
 	 					 rtp_socket.send(rtp_packet);  // can't use sendPacket here, or double encryption
 	 			 } catch (Exception e) {
 	 			 }
@@ -507,6 +503,7 @@ public class RtpStreamSender extends Thread {
  						 (p_type.codec.number() == 0 || p_type.codec.number() == 8 || p_type.codec.number() == 9))        	
  					 m = 2;
  				 else
+
  					 m = 1;
  			 } else
  				 m = 1;

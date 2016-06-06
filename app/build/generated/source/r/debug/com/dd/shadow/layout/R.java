@@ -8,22 +8,22 @@ package com.dd.shadow.layout;
 
 public final class R {
 	public static final class attr {
-		public static final int sl_cornerRadius = 0x7f010065;
-		public static final int sl_dx = 0x7f010068;
-		public static final int sl_dy = 0x7f010069;
-		public static final int sl_shadowColor = 0x7f010067;
-		public static final int sl_shadowRadius = 0x7f010066;
+		public static final int sl_cornerRadius = 0x7f010068;
+		public static final int sl_dx = 0x7f01006b;
+		public static final int sl_dy = 0x7f01006c;
+		public static final int sl_shadowColor = 0x7f01006a;
+		public static final int sl_shadowRadius = 0x7f010069;
 	}
 	public static final class color {
-		public static final int default_fill_color = 0x7f0c0019;
-		public static final int default_shadow_color = 0x7f0c001a;
+		public static final int default_fill_color = 0x7f0c0023;
+		public static final int default_shadow_color = 0x7f0c0024;
 	}
 	public static final class dimen {
 		public static final int default_corner_radius = 0x7f07004c;
 		public static final int default_shadow_radius = 0x7f07004d;
 	}
 	public static final class styleable {
-		public static final int[] ShadowLayout = { 0x7f010065, 0x7f010066, 0x7f010067, 0x7f010068, 0x7f010069 };
+		public static final int[] ShadowLayout = { 0x7f010068, 0x7f010069, 0x7f01006a, 0x7f01006b, 0x7f01006c };
 		public static final int ShadowLayout_sl_cornerRadius = 0;
 		public static final int ShadowLayout_sl_dx = 3;
 		public static final int ShadowLayout_sl_dy = 4;

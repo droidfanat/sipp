@@ -617,7 +617,7 @@ public class RtpStreamReceiver extends Thread {
 				}
 				timeout = 0;
 			} catch (Exception e) {
-				e.printStackTrace();
+			//	e.printStackTrace();
 			//	logger.warning("Exception in receive/play block: " + e.getClass().getCanonicalName() + ", " + e.getMessage());
 				if (timeout == 0 && nodata) {
 					tg.startTone(ToneGenerator.TONE_SUP_RINGTONE);

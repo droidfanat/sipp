@@ -1,0 +1,9 @@
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$SectionsPagerAdapter$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$2$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$3$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$4$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/com/android/tools/fd/runtime/AppPatchesLoaderImpl.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$5$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$6$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$1$override.class
+CHANGED,/home/admin2/progect/sipp/app/build/intermediates/transforms/instantRun/debug/folders/4000/5/enhanced/org/silena/main/MainActivity$override.class

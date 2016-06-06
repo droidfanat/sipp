@@ -39,7 +39,7 @@ public class RegisterService extends Service {
 			unregisterReceiver(m_receiver);
 			m_receiver = null;
 		}
-		Receiver.alarm(0, OneShotAlarm2.class);
+	//	Receiver.alarm(0, OneShotAlarm2.class);
 	}
     
     @Override

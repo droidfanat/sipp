@@ -5,20 +5,15 @@
  */
 package org.silena.main;
 
-import org.silena.R; 
-import static org.silena.main.DownloadImageActivity.DEBUG_TAG;
-import static org.silena.main.MainActivity.LOG_TAG;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import static android.content.Context.MODE_PRIVATE;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,9 +22,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.silena.R;
+import org.utils.HttpDriver;
+import org.utils.MainVars;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.CookieHandler;
@@ -39,15 +46,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.utils.HttpDriver;
-import org.utils.MainVars;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
+import static org.silena.main.DownloadImageActivity.DEBUG_TAG;
+import static org.silena.main.MainActivity.LOG_TAG;
 /**
  *
  * @author admin2
