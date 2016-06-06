@@ -194,11 +194,6 @@ public class CallScreen extends Activity implements DialogInterface.OnClickListe
     	}
 		if (enabled) {
 			mKeyguardLock.disableKeyguard();
-			if (Integer.parseInt(Build.VERSION.SDK) == 16 && Build.MODEL.contains("HTC One"))
-				mKeyguardManager.exitKeyguardSecurely(new OnKeyguardExitResult() {
-				    public void onKeyguardExitResult(boolean success) {
-				    }
-				});
 			enabled = false;
 			enabletime = SystemClock.elapsedRealtime();
 		}
@@ -226,7 +221,9 @@ public class CallScreen extends Activity implements DialogInterface.OnClickListe
 		super.onResume();
 		if (Integer.parseInt(Build.VERSION.SDK) >= 5 && Integer.parseInt(Build.VERSION.SDK) <= 7)
 			disableKeyguard();
-		if (Receiver.call_state == UserAgent.UA_STATE_INCALL && socket == null && Receiver.engine(mContext).getLocalVideo() != 0 && Receiver.engine(mContext).getRemoteVideo() != 0 && PreferenceManager.getDefaultSharedPreferences(this).getString(org.sipdroid.sipua.ui.Settings.PREF_SERVER, org.sipdroid.sipua.ui.Settings.DEFAULT_SERVER).equals(org.sipdroid.sipua.ui.Settings.DEFAULT_SERVER))
+		//boolean isPBXes = PreferenceManager.getDefaultSharedPreferences(this).getString(org.sipdroid.sipua.ui.Settings.PREF_SERVER, org.sipdroid.sipua.ui.Settings.DEFAULT_SERVER).equals(org.sipdroid.sipua.ui.Settings.DEFAULT_SERVER);
+		boolean isPBXes = false;
+		if (Receiver.call_state == UserAgent.UA_STATE_INCALL && socket == null && Receiver.engine(mContext).getLocalVideo() != 0 && Receiver.engine(mContext).getRemoteVideo() != 0 && isPBXes)
 	        (new Thread() {
 				public void run() {
 					RtpPacket keepalive = new RtpPacket(new byte[12],0);

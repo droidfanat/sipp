@@ -32,8 +32,8 @@ public class InstantAutoCompleteTextView extends AutoCompleteTextView {
 	@Override
 	public void onWindowFocusChanged(boolean hasWindowFocus) {
 		super.onWindowFocusChanged(hasWindowFocus);
-//		if (hasWindowFocus && getAdapter() != null && getAdapter().getCount() > 0)
-//			showDropDown();
+		if (hasWindowFocus && getAdapter() != null && getAdapter().getCount() > 0)
+			showDropDown();
 	}
 	
 	@Override
