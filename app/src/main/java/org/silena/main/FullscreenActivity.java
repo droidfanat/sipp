@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
 import org.silena.R;
+import org.sipdroid.sipua.ui.Receiver;
 
 
 public class FullscreenActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 FullscreenActivity.this.finish();
             }
-        }, 5000);
+        }, (Receiver.mStart == false)?5000:1);
 
     }
 }
