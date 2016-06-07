@@ -40,24 +40,24 @@
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dialer_default.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/btn_dial_pressed.png",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dial_pressed.png"
-    },
-    {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/tray_handle_selected.9.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/tray_handle_selected.9.png"
+    },
+    {
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/btn_dial_pressed.png",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dial_pressed.png"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/btn_dial_selected.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dial_selected.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_0_blk.png",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_0_blk.png"
-    },
-    {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_pound.xml",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_pound.xml"
+    },
+    {
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_0_blk.png",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_0_blk.png"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_5_blk.png",
@@ -128,12 +128,12 @@
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_unselected_stared.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/ic_tab_contacts.xml",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_contacts.xml"
-    },
-    {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_star_blk.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_star_blk.png"
+    },
+    {
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/ic_tab_contacts.xml",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_contacts.xml"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/btn_dial_textfield_pressed_full.9.png",
@@ -144,28 +144,28 @@
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_dialpad_tray.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_5.xml",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_5.xml"
-    },
-    {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_8.xml",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_8.xml"
+    },
+    {
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_5.xml",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_5.xml"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_3_blk.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_3_blk.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/ic_tab_selected_stared.png",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_selected_stared.png"
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_3_wht.png",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_3_wht.png"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/btn_dial_delete_activated.9.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dial_delete_activated.9.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_3_wht.png",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_3_wht.png"
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/ic_tab_selected_stared.png",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_selected_stared.png"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_2.xml",
@@ -312,12 +312,12 @@
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/btn_dial_delete_pressed.9.png"
     },
     {
-        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_7.xml",
-        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_7.xml"
-    },
-    {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/ic_tab_selected_recent.png",
         "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/ic_tab_selected_recent.png"
+    },
+    {
+        "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_7.xml",
+        "source": "/home/admin2/progect/sipp/app/src/main/res/drawable-finger/dial_num_7.xml"
     },
     {
         "merged": "/home/admin2/progect/sipp/app/build/intermediates/res/merged/debug/drawable-finger/dial_num_4_blk.png",

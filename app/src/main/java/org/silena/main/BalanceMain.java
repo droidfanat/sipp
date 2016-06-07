@@ -23,7 +23,7 @@ import com.dm.zbar.android.scanner.ZBarScannerActivity;
 import net.sourceforge.zbar.Symbol;
 import static org.silena.main.MainConstant.STATUS_BALANCE;
 import static org.silena.main.MainConstant.STATUS_HISTORY;
-import org.sipdroid.sipua.ui.Receiver;
+
 /**
  *
  * @author admin2
@@ -31,24 +31,24 @@ import org.sipdroid.sipua.ui.Receiver;
 public class BalanceMain extends ListActivity implements View.OnClickListener {
 
     private static final int ZBAR_SCANNER_REQUEST = 0;
-    private static final int ZBAR_QR_SCANNER_REQUEST = 1; 
-  
+    private static final int ZBAR_QR_SCANNER_REQUEST = 1;
+
     private BroadcastReceiver broadcastReceiver;
     private String balance=null;
     private String[] balanceList=null;
-     Button scan_btn; 
+     Button scan_btn;
      boolean regustred = false;
     int  regustredTime=0;
-     
-    
+
+
     @Override
        public void onStart() {
             super.onStart();
 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                           
+
    }
-    
-    
+
+
      /**
      * Called when the activity is first created.
      * @param icicle
@@ -56,39 +56,39 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-       
+
          setContentView(R.layout.balance_main);
-           
+
             scan_btn = (Button)findViewById(R.id.scan_btn);
             scan_btn.setOnClickListener(this);
             broadcastReceiver = new BroadcastReceiver() {
               @Override
              public void onReceive(Context context, Intent intent) {
-             int status = intent.getIntExtra(MainConstant.PARAM_STATUS, 0);   
+             int status = intent.getIntExtra(MainConstant.PARAM_STATUS, 0);
                  switch(status) {
-    case STATUS_BALANCE: 
+    case STATUS_BALANCE:
          balance = intent.getStringExtra(MainConstant.PARAM_BALANCE);
-     
+
          Log.d(MainConstant.LOG_TAG, "Balance menedger Receive"+balance);
-         TextView  Balance= (TextView) findViewById(R.id.balance); 
+         TextView  Balance= (TextView) findViewById(R.id.balance);
          if(!"".equals(balance)){
-          Balance.setText("Balance: "+balance);   
+          Balance.setText("Balance: "+balance);
          } else{
-          Balance.setText("Balance: 0.00");    
+          Balance.setText("Balance: 0.00");
          }
-             
-         
+
+
 		break;
-  
+
          case STATUS_HISTORY:
          balanceList = intent.getStringArrayExtra(MainConstant.PARAM_LIST);
          Log.d(MainConstant.LOG_TAG, "Balance menedger Receive List"+balanceList[0]);
-         viewList(balanceList);  
+         viewList(balanceList);
                 break;
-                
+
              }
-                    
-                    
+
+
               }
         };
 
@@ -103,66 +103,66 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         unregisterReceiver(broadcastReceiver);
     }
 
-    
-    
-    
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
         Getbalance();
-  
+
     }
-    
-    
-    
-    
+
+
+
+
     void viewList(String[] values ){
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, values);
 		setListAdapter(adapter);
-        
+
     }
-            
-    
-    
+
+
+
     void Getbalance(){
        Long tsLong  =  System.currentTimeMillis()/1000;
        if( regustred == true  || (tsLong.intValue()-regustredTime)< (0 * 0 * 0 * 60)) {
       }else{
-      Intent intent = new Intent(MainConstant.BROADCAST_ACTION);     
-   
+      Intent intent = new Intent(MainConstant.BROADCAST_ACTION);
+
       intent.putExtra(MainConstant.PARAM_STATUS, MainConstant.STATUS_BALANCE);
          intent.putExtra(MainConstant.PARAM_TASK, MainConstant.METHOD_GETBALANCE);
-      sendBroadcast(intent);     
-      
+      sendBroadcast(intent);
+
       }
-           
-    
-    
+
+
+
     }
-    
-    
+
+
     void QrScaner() {
         Intent intent = new Intent(this, ZBarScannerActivity.class);
         intent.putExtra(ZBarConstants.SCAN_MODES, new int[]{Symbol.QRCODE});
         startActivityForResult(intent, ZBAR_SCANNER_REQUEST);
     }
 
-    
+
 void balanceAmount(String data){
-      Intent intent = new Intent(MainConstant.BROADCAST_ACTION);     
+      Intent intent = new Intent(MainConstant.BROADCAST_ACTION);
       intent.putExtra(MainConstant.PARAM_STATUS, MainConstant.STATUS_BALANCE);
       intent.putExtra(MainConstant.PARAM_TASK, MainConstant.METHOD_TRANSACTION);
       intent.putExtra(MainConstant.PARAM_RESULT,data);
-      sendBroadcast(intent);       
-} 
-    
-    
-    
+      sendBroadcast(intent);
+}
+
+
+
     @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data)
-{    
-    if (resultCode == RESULT_OK) 
+{
+    if (resultCode == RESULT_OK)
     {
         // Scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT)
         // Type of the scan result is available by making a call to data.getStringExtra(ZBarConstants.SCAN_RESULT_TYPE)
@@ -175,16 +175,15 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data)
     }
 }
 
-    public void onClick(View v) {  
+    public void onClick(View v) {
 
          if (v.getId() == R.id.scan_btn) {
-     
+
              QrScaner();
-             
+
               }
 
-       
-         }  
-    
-    
+
+         }
+
 }

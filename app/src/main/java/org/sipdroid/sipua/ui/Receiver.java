@@ -127,7 +127,11 @@ import org.zoolu.sip.provider.SipProvider;
 		public static String pstn_state;
 		public static long pstn_time;
 		public static String MWI_account;
-		private static String laststate,lastnumber;	
+		private static String laststate,lastnumber;
+
+
+		final static String ACTION_SERVICE_RECEIVER_BALANCE = "android.intent.action.ACTION_SERVICE_RECEIVER_BALANCE";
+
 
 		public static synchronized SipdroidEngine engine(Context context) {
 			if (mContext == null || !context.getClass().getName().contains("ReceiverRestrictedContext"))
@@ -763,6 +767,13 @@ import org.zoolu.sip.provider.SipProvider;
 		    		intentAction.equals(Intent.ACTION_PACKAGE_REPLACED)) {
 		    	engine(context).register();
 			} else
+			if(intentAction.equals(ACTION_SERVICE_RECEIVER_BALANCE)){
+
+
+
+
+
+			}else
 			if (intentAction.equals(ACTION_VPN_CONNECTIVITY) && intent.hasExtra("connection_state")) {
 				String state = intent.getSerializableExtra("connection_state").toString();
 				if (state != null && on_vpn() != state.equals("CONNECTED")) {

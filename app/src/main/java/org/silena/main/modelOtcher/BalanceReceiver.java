@@ -1,0 +1,1 @@
+package org.silena.main.modelOtcher;/** * Created by admin2 on 06.06.16. */class BalanceReceiver extends HttpsJsonSender {}
