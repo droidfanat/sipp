@@ -388,9 +388,9 @@ public class InCallScreen extends CallScreen implements View.OnClickListener, Se
 
     @Override
 	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
-		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(icicle);
+
 		setContentView(R.layout.incall);
 		
 		initInCallScreen();

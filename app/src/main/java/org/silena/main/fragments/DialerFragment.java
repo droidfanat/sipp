@@ -32,6 +32,7 @@ public class DialerFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dealer, null);
         mainActivity = (MainActivity) getActivity();
+        mainActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         Balance = (TextView) view.findViewById(R.id.des);
 //        Balance.setText(mainActivity.getBalnceString());

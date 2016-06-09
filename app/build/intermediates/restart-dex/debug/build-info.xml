@@ -4,29 +4,73 @@
     api-level="23"
     density="hdpi"
     format="7"
-    timestamp="1655059105905" >
+    timestamp="10995729371540"
+    verifier="R_CLASS_CHANGE" >
 
     <task
         name="javac"
-        duration="11391" />
+        duration="2806" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="5392" />
+        duration="698" />
     <task
         name="verifier"
-        duration="828" />
+        duration="30" />
 
     <artifact
-        location="C:\Android Projects\sippstok\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Android Projects\sipp\app\build\intermediates\res\resources-debug.ap_"
+        type="RESOURCES" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_7\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_4\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
+        type="DEX" />
 
-    <build timestamp="1655059105905" >
+    <build timestamp="10137693292583" >
         <artifact
-            location="C:\Android Projects\sippstok\app\build\outputs\apk\app-debug.apk"
+            location="C:\Android Projects\sipp\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="10995729371540"
+        verifier="R_CLASS_CHANGE" >
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\res\resources-debug.ap_"
+            type="RESOURCES" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_8\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_7\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_4\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Android Projects\sipp\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_2\classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

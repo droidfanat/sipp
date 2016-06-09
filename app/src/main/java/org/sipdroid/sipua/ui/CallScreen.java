@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +51,7 @@ import android.widget.EditText;
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-public class CallScreen extends Activity implements DialogInterface.OnClickListener {
+public class CallScreen extends AppCompatActivity implements DialogInterface.OnClickListener {
 	public static final int FIRST_MENU_ID = Menu.FIRST;
 	public static final int HANG_UP_MENU_ITEM = FIRST_MENU_ID + 1;
 	public static final int HOLD_MENU_ITEM = FIRST_MENU_ID + 2;

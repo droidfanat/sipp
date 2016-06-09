@@ -1,6 +1,5 @@
 package org.silena.main;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -13,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
@@ -55,7 +53,6 @@ import org.silena.main.fragments.MainBalanceFragment;
 import org.silena.main.model.Call;
 import org.silena.main.model.Contact;
 import org.silena.ser.httpService;
-import org.sipdroid.sipua.ui.InCallScreen;
 import org.sipdroid.sipua.ui.Receiver;
 import org.sipdroid.sipua.ui.RegisterService;
 import org.sipdroid.sipua.ui.Settings;
@@ -110,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int CONFIGURE_MENU_ITEM = FIRST_MENU_ID + 1;
     public static final int ABOUT_MENU_ITEM = FIRST_MENU_ID + 2;
     public static final int EXIT_MENU_ITEM = FIRST_MENU_ID + 3;
-    public static final int BALANCE_MENU_ITEM = FIRST_MENU_ID + 4;
+    public static final int ADDITIONAL_NUMBER = FIRST_MENU_ID + 4;
     private static AlertDialog m_AlertDlg;
     BroadcastReceiver br;
 
@@ -215,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 billing_list = intent.getStringArrayExtra(MainConstant.PARAM_RESULT);
                                 if ( billing_list==null) break;
                                 ViewHistory();
-                                Log.d(MainConstant.LOG_TAG, "Service GET BALANCELIST  Result" + billing_list[0]);
+//                                Log.d(MainConstant.LOG_TAG, "Service GET BALANCELIST  Result" + billing_list[0]);
                                 break;
 
                             case MainConstant.METHOD_TRANSACTION:
@@ -365,8 +362,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         m.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
         m = menu.add(0, CONFIGURE_MENU_ITEM, 0, R.string.menu_settings);
         m.setIcon(android.R.drawable.ic_menu_preferences);
-//        m = menu.add(0, BALANCE_MENU_ITEM, 0, R.string.menu_balance);
-//        m.setIcon(android.R.drawable.ic_menu_preferences);
+        m = menu.add(0, ADDITIONAL_NUMBER, 0, "Additional number");
+        m.setIcon(android.R.drawable.ic_menu_preferences);
 
         return result;
     }
@@ -432,12 +429,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
 
-            case BALANCE_MENU_ITEM: {
-                try {
-                    intent = new Intent(this, org.silena.main.BalanceMain.class);
-                    startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                }
+            case ADDITIONAL_NUMBER: {
+                showAdditionsNumberDialog();
             }
             break;
         }
@@ -725,7 +718,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         image.setBounds(0, 0, image.getIntrinsicHeight(), image.getIntrinsicHeight());
 //        int i = 322112/ 2213123;
         // Replace blank spaces with image icon
-        SpannableString sb = new SpannableString("   " + title);
+        SpannableString sb = new SpannableString("  " + title);
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sb;
@@ -754,6 +747,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Callback(number);
             }
         });
+
+        stolDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        stolDialog.show();
+    }
+
+    public void showAdditionsNumberDialog() {
+
+        final Dialog stolDialog = new Dialog(this);
+        stolDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        stolDialog.setContentView(R.layout.additional_number_dialog);
 
         stolDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         stolDialog.show();

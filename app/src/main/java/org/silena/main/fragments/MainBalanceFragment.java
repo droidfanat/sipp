@@ -78,7 +78,7 @@ public class MainBalanceFragment extends Fragment implements View.OnClickListene
 
                     case STATUS_HISTORY:
                         balanceList = intent.getStringArrayExtra(MainConstant.PARAM_LIST);
-                        Log.d(MainConstant.LOG_TAG, "Balance menedger Receive List" + balanceList[0]);
+//                        Log.d(MainConstant.LOG_TAG, "Balance menedger Receive List" + balanceList[0]);
                         viewList(balanceList);
                         view.findViewById(R.id.loadProgress).setVisibility(View.GONE);
                         break;

@@ -30,11 +30,6 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <supports-screens
-        android:anyDensity="false"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true" />
 
     <uses-feature
         android:name="android.hardware.bluetooth"
@@ -88,7 +83,7 @@
             android:name="com.dm.zbar.android.scanner.ZBarScannerActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" />
-        BalanceMain
+
         <activity
             android:name=".main.Registration"
             android:label="@string/app_name" />
@@ -105,7 +100,7 @@
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:taskAffinity="" />
+            android:taskAffinity=""/>
         <activity
             android:name="org.sipdroid.sipua.ui.PSTN"
             android:icon="@drawable/ic_launcher_phone"
@@ -184,7 +179,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:theme="@style/PreferencesTheme">
-            android:excludeFromRecents="true" android:taskAffinity="">
+
         </activity>
         <activity
             android:name="org.sipdroid.codecs.Codecs$CodecSettings"
@@ -203,7 +198,8 @@
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:taskAffinity="" />
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver
             android:name="org.sipdroid.sipua.ui.OneShotAlarm"

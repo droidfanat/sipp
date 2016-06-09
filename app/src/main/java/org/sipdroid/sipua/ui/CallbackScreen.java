@@ -6,14 +6,17 @@
 package org.sipdroid.sipua.ui;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -59,6 +62,18 @@ Phone ccPhone;
 	TextView mStats;
 	TextView mCodec;
 
+
+    public void onCreate(Bundle icicle) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        super.onCreate(icicle);
+
+        setContentView(R.layout.callback);
+
+//        initInCallScreen();
+
+        if(!android.os.Build.BRAND.equalsIgnoreCase("archos"))
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+    }
     
       public void initInCallScreen() {
         mInCallPanel = (ViewGroup) findViewById(R.id.inCallPanel);
